@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Circular Binaries Mass Transfer — orrda</title>
-  <meta name="description" content="Mass transfer in circular binary star systems via Roche lobe overflow and accretion." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -51,98 +50,12 @@
         </span>
       </div>
       <h1 class="project-title">Circular Binaries Mass Transfer</h1>
-      <p class="project-subtitle">
-        Roche lobe geometry, mass transfer rates, and orbital evolution in
-        circular binary star systems.
-      </p>
     </div>
 
     <div class="project-body">
-
-      <h2>The restricted three-body problem</h2>
-      <p>
-        A close binary is modelled as two point masses $M_1$ and $M_2$ in a circular
-        orbit of separation $a$ and angular velocity
-        $\Omega = \sqrt{G(M_1+M_2)/a^3}$.
-        In the co-rotating frame an effective potential (the Roche potential) governs
-        the structure of the gas:
-      </p>
-      <div class="math-block" data-category="physics">
-        $$\Phi_R(\mathbf{r}) = -\frac{GM_1}{|\mathbf{r}-\mathbf{r}_1|}
-                              - \frac{GM_2}{|\mathbf{r}-\mathbf{r}_2|}
-                              - \frac{1}{2}\Omega^2|\mathbf{r}|^2$$
-      </div>
-
-      <h2>Roche lobe and L1 point</h2>
-      <p>
-        The <em>Roche lobe</em> of each star is the region of space in which
-        material is gravitationally bound to that star.  The two lobes share a
-        saddle point — the inner Lagrange point $L_1$ — where gas can flow between
-        the stars.  A useful approximation for the Roche lobe radius is the
-        Eggleton formula:
-      </p>
-      <div class="math-block" data-category="physics">
-        $$\frac{R_L}{a} = \frac{0.49\,q^{2/3}}{0.6\,q^{2/3} + \ln(1+q^{1/3})},
-          \qquad q = \frac{M_1}{M_2}$$
-      </div>
-      <p>
-        Mass transfer begins when the donor star fills its Roche lobe (overflow).
-      </p>
-
-      <h2>Mass transfer rate</h2>
-      <p>
-        The transfer rate $\dot{M}$ depends on how far the donor overflows its
-        Roche lobe.  For thermal-timescale overflow:
-      </p>
-      <div class="math-block" data-category="physics">
-        $$\dot{M} \sim -\frac{M_{\rm donor}}{\tau_{\rm KH}},
-          \qquad \tau_{\rm KH} = \frac{GM^2}{RL}$$
-      </div>
-      <p>
-        where $\tau_{\rm KH}$ is the Kelvin–Helmholtz timescale.  The sign of
-        $\dot{J}_{\rm orb}$ determines whether mass transfer is stable or leads
-        to runaway (common-envelope evolution).
-      </p>
-
-      <h2>Orbital evolution</h2>
-      <p>
-        Conservation of total angular momentum $J = J_{\rm orb} + J_{\rm spin}$
-        with mass loss from the system gives
-      </p>
-      <div class="math-block" data-category="physics">
-        $$\frac{\dot{a}}{a} = -2\frac{\dot{M}_1}{M_1}
-          \left(1 - q\frac{R_L}{a}\right) - 2\frac{\dot{J}_{\rm loss}}{J_{\rm orb}}$$
-      </div>
-      <p>
-        The orbit may widen or shrink depending on the mass ratio and the
-        efficiency of angular momentum loss (gravitational waves, magnetic braking).
-      </p>
-
-      <h2>Current progress</h2>
-      <ul>
-        <li>Roche potential geometry and Lagrange points</li>
-        <li>Eggleton Roche lobe radius formula and its derivation</li>
-        <li>Working on: stability criteria for mass transfer</li>
-        <li>Planned: accretion disk formation and viscous evolution</li>
-      </ul>
-
-      <div class="update-log">
-        <h2>Update log</h2>
-        <div class="update-entry">
-          <span class="update-date">2026-03-19</span>
-          <span class="update-note">Derived Eggleton formula; plotted Roche potential surfaces.</span>
-        </div>
-        <div class="update-entry">
-          <span class="update-date">2026-02-08</span>
-          <span class="update-note">Reviewed restricted three-body problem and co-rotating frame.</span>
-        </div>
-        <div class="update-entry">
-          <span class="update-date">2026-01-20</span>
-          <span class="update-note">Project started; orbital mechanics review.</span>
-        </div>
-      </div>
-
+      <!-- content coming soon -->
     </div>
+
   </div>
 </main>
 

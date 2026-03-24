@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Stochastic Butcher Matrices — orrda</title>
-  <meta name="description" content="Extending Butcher tableaux to stochastic Runge–Kutta methods for SDEs." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -51,93 +50,12 @@
         </span>
       </div>
       <h1 class="project-title">Stochastic Butcher Matrices</h1>
-      <p class="project-subtitle">
-        Extending Butcher's B-series and Runge–Kutta tableaux to stochastic
-        differential equations, and deriving the resulting order conditions.
-      </p>
     </div>
 
     <div class="project-body">
-
-      <h2>Classical Butcher tableaux</h2>
-      <p>
-        A Runge–Kutta method for the ODE $\dot{y} = f(y)$ is encoded by
-        a Butcher tableau $(A, b, c)$ where $A \in \mathbb{R}^{s\times s}$,
-        $b \in \mathbb{R}^s$, $c = A\mathbf{1}$:
-      </p>
-      <div class="math-block">
-        $$k_i = f\!\left(y_n + h\sum_{j=1}^s a_{ij} k_j\right),
-          \qquad y_{n+1} = y_n + h \sum_{i=1}^s b_i k_i$$
-      </div>
-      <p>
-        The <em>order conditions</em> — algebraic equations that $A$ and $b$ must
-        satisfy for a given order $p$ — are elegantly indexed by rooted trees via
-        Butcher's B-series.
-      </p>
-
-      <h2>Itô SDEs and Stratonovich form</h2>
-      <p>
-        Consider the Itô SDE
-        $dX = f(X)\,dt + g(X)\,dW$
-        where $W$ is a Brownian motion.  In Stratonovich form
-        $dX = \tilde{f}(X)\circ dt + g(X)\circ dW$
-        with $\tilde{f} = f - \tfrac{1}{2}g'g$,
-        the chain rule takes its classical form, making the algebra of
-        stochastic methods more transparent.
-      </p>
-
-      <h2>Stochastic Runge–Kutta methods</h2>
-      <p>
-        A stochastic Runge–Kutta (SRK) method approximates $X(t_{n+1})$ by
-        evaluating $f$ and $g$ at multiple stages.  For Itô order 1.5 (strong)
-        the method requires <em>two</em> Butcher-like matrices $(A^{(0)}, A^{(1)})$
-        corresponding to the drift and diffusion evaluations:
-      </p>
-      <div class="math-block">
-        $$H_i^{(0)} = X_n + \sum_j a_{ij}^{(0)} f(H_j^{(0)})\,h
-                           + \sum_j a_{ij}^{(1)} g(H_j^{(1)})\,\Delta W$$
-      </div>
-
-      <h2>Stochastic B-series and order conditions</h2>
-      <p>
-        Burrage and Burrage (1996) extended B-series to SDEs by replacing rooted
-        trees with <em>coloured trees</em> whose nodes are labelled by the
-        differential operator applied (drift or diffusion).
-        The strong order-$p$ conditions take the form
-      </p>
-      <div class="math-block">
-        $$\Phi(t) = \frac{1}{\gamma(t)}, \quad \forall\, t \in T^{(S)}, |t| \leq p$$
-      </div>
-      <p>
-        where $\gamma(t)$ is the density of the tree and $\Phi(t)$ is a polynomial
-        in the entries of $A^{(0)}, A^{(1)}, b^{(0)}, b^{(1)}$.
-      </p>
-
-      <h2>Current progress</h2>
-      <ul>
-        <li>Classical Butcher tableaux and B-series; order conditions for ODEs</li>
-        <li>Itô and Stratonovich calculus; multiple stochastic integrals</li>
-        <li>Working on: stochastic trees and Burrage–Burrage B-series for SDEs</li>
-        <li>Planned: construction of new strong order 1.5 SRK methods</li>
-      </ul>
-
-      <div class="update-log">
-        <h2>Update log</h2>
-        <div class="update-entry">
-          <span class="update-date">2026-03-23</span>
-          <span class="update-note">Formulated stochastic B-series; derived order conditions for strong order 1.0.</span>
-        </div>
-        <div class="update-entry">
-          <span class="update-date">2026-02-20</span>
-          <span class="update-note">Reviewed Itô–Stratonovich conversion; multiple stochastic integrals.</span>
-        </div>
-        <div class="update-entry">
-          <span class="update-date">2026-02-01</span>
-          <span class="update-note">Project started; classical Butcher tableaux and B-series.</span>
-        </div>
-      </div>
-
+      <!-- content coming soon -->
     </div>
+
   </div>
 </main>
 

@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Self-similar Solutions to Non-linear PDEs — orrda</title>
-  <meta name="description" content="Scaling symmetries and self-similar (Barenblatt) solutions to non-linear PDEs." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -51,94 +50,12 @@
         </span>
       </div>
       <h1 class="project-title">Self-similar Solutions to Non-linear PDEs</h1>
-      <p class="project-subtitle">
-        Exploiting scaling symmetries to reduce non-linear PDEs to ODEs
-        and find Barenblatt-type self-similar profiles.
-      </p>
     </div>
 
     <div class="project-body">
-
-      <h2>Scaling symmetry</h2>
-      <p>
-        A PDE admits a <em>scaling symmetry</em> if the transformation
-        $(t, x, u) \mapsto (\lambda^\alpha t,\, \lambda^\beta x,\, \lambda^\gamma u)$
-        maps solutions to solutions for every $\lambda > 0$.
-        Self-similar solutions then take the form
-      </p>
-      <div class="math-block">
-        $$u(x,t) = t^{-\gamma/\alpha}\, U\!\left(\frac{x}{t^{\beta/\alpha}}\right)$$
-      </div>
-      <p>
-        where the <em>similarity variable</em> $\xi = x\,t^{-\beta/\alpha}$ reduces
-        the PDE to an ODE for the profile $U(\xi)$.
-      </p>
-
-      <h2>Porous medium equation</h2>
-      <p>
-        The porous medium equation
-        $u_t = \Delta(u^m)$, $m > 1$,
-        admits the Barenblatt solution
-      </p>
-      <div class="math-block">
-        $$u(x,t) = t^{-k}\!\left(C - \frac{m-1}{2m}\,\frac{|x|^2}{t^{2k/n}}\right)_+^{1/(m-1)},
-          \quad k = \frac{n}{n(m-1)+2}$$
-      </div>
-      <p>
-        This is a <em>self-similar solution of the second kind</em> whose compact
-        support expands as $t^{k/n}$, exhibiting finite-speed propagation — in
-        contrast to the linear heat equation.
-      </p>
-
-      <h2>Non-linear heat equation and blow-up</h2>
-      <p>
-        For the focusing non-linear heat equation
-        $u_t = \Delta u + u^p$, $p > 1$,
-        blow-up in finite time $T^*$ can occur.
-        Near blow-up the solution concentrates on a self-similar profile:
-      </p>
-      <div class="math-block">
-        $$u(x,t) \approx (T^* - t)^{-1/(p-1)}\,\Phi\!\left(\frac{x}{\sqrt{T^*-t}}\right)$$
-      </div>
-      <p>
-        The profile $\Phi$ satisfies a non-linear elliptic ODE; proving its existence
-        and stability is a central problem in the field.
-      </p>
-
-      <h2>Lie symmetry analysis</h2>
-      <p>
-        Systematic reduction is provided by Lie's classical method.  For a PDE
-        $F[u] = 0$ admitting infinitesimal generator
-        $\mathbf{v} = \xi^i(x,u)\partial_{x^i} + \phi(x,u)\partial_u$,
-        the invariance condition $\mathrm{pr}^{(k)}\mathbf{v}(F)\big|_{F=0} = 0$
-        yields an overdetermined linear system for $\xi^i$ and $\phi$.
-      </p>
-
-      <h2>Current progress</h2>
-      <ul>
-        <li>Dimensional analysis and the Pi theorem as a first tool</li>
-        <li>Barenblatt solutions for the porous medium equation</li>
-        <li>Working on: self-similar blow-up profiles for $u_t = \Delta u + u^p$</li>
-        <li>Planned: Lie symmetry reduction and group-invariant solutions</li>
-      </ul>
-
-      <div class="update-log">
-        <h2>Update log</h2>
-        <div class="update-entry">
-          <span class="update-date">2026-03-22</span>
-          <span class="update-note">Derived Barenblatt profiles; finite-speed propagation analysis.</span>
-        </div>
-        <div class="update-entry">
-          <span class="update-date">2026-02-14</span>
-          <span class="update-note">Scaling symmetry and similarity variables; reduction to ODE.</span>
-        </div>
-        <div class="update-entry">
-          <span class="update-date">2026-01-25</span>
-          <span class="update-note">Project started; dimensional analysis review.</span>
-        </div>
-      </div>
-
+      <!-- content coming soon -->
     </div>
+
   </div>
 </main>
 
