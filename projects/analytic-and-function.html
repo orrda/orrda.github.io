@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Analytic "AND" Function — orrda</title>
+  <meta name="description" content="Analytic and polynomial approximations to the Boolean AND function." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+</head>
+<body>
+
+<header>
+  <nav class="container">
+    <a href="../index.html" class="nav-brand">orrda<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="../index.html#projects">Projects</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <div class="project-detail container">
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../index.html">Home</a>
+      <span class="breadcrumb-sep">›</span>
+      <a href="../index.html#projects">Projects</a>
+      <span class="breadcrumb-sep">›</span>
+      <span>Analytic "AND" Function</span>
+    </nav>
+
+    <div class="project-header">
+      <div class="project-header-meta">
+        <span class="card-tag math">Mathematics</span>
+        <span class="card-status">
+          <span class="status-dot"></span>In progress
+        </span>
+      </div>
+      <h1 class="project-title">Analytic &ldquo;AND&rdquo; Function</h1>
+      <p class="project-subtitle">
+        Constructing real-analytic and polynomial approximations to the Boolean AND
+        function, with implications for circuit complexity and learning theory.
+      </p>
+    </div>
+
+    <div class="project-body">
+
+      <h2>The Boolean AND function</h2>
+      <p>
+        The $n$-bit AND function $\mathrm{AND}_n : \{0,1\}^n \to \{0,1\}$ outputs $1$
+        if and only if every input bit equals $1$.  Equivalently, on $\{-1,+1\}^n$
+        with the convention $1 \leftrightarrow +1$ and $0 \leftrightarrow -1$,
+      </p>
+      <div class="math-block">
+        $$\mathrm{AND}_n(x_1,\ldots,x_n)
+          = \frac{1}{2}\!\left(1 + \prod_{i=1}^n x_i\right)
+            \cdot \prod_{i=1}^n \frac{1+x_i}{2}$$
+      </div>
+      <p>
+        The multilinear representation is the unique multilinear polynomial
+        agreeing with AND on all Boolean inputs.
+      </p>
+
+      <h2>Fourier analysis on the Boolean cube</h2>
+      <p>
+        Every $f : \{-1,+1\}^n \to \mathbb{R}$ has a unique multilinear expansion
+        (Fourier–Walsh expansion):
+      </p>
+      <div class="math-block">
+        $$f(x) = \sum_{S \subseteq [n]} \hat{f}(S)\,\chi_S(x),
+          \qquad \chi_S(x) = \prod_{i \in S} x_i$$
+      </div>
+      <p>
+        For $\mathrm{AND}_n$ the Fourier coefficients are
+        $\hat{\mathrm{AND}}_n(S) = (-1)^{n-|S|} / 2^n$ for all $S \subseteq [n]$,
+        giving total influence $\mathbf{I}[\mathrm{AND}_n] = n/2^{n-1}$.
+      </p>
+
+      <h2>Analytic approximation</h2>
+      <p>
+        We seek a real-analytic function $F : \mathbb{R}^n \to \mathbb{R}$ that
+        (i) agrees with AND on $\{0,1\}^n$, (ii) is smooth everywhere, and (iii)
+        has controlled growth outside the unit cube $[0,1]^n$.
+        One natural candidate uses the sigmoid:
+      </p>
+      <div class="math-block">
+        $$F_\beta(x) = \sigma\!\left(\beta\!\left(\prod_{i=1}^n x_i - \tfrac{1}{2}\right)\right),
+          \qquad \sigma(t) = \frac{1}{1+e^{-t}}$$
+      </div>
+      <p>
+        As $\beta \to \infty$, $F_\beta$ converges pointwise to AND on $\{0,1\}^n$,
+        but the gradient concentrates near the boundary of the Boolean cube.
+      </p>
+
+      <h2>Degree and approximation complexity</h2>
+      <p>
+        The approximate degree $\widetilde{\deg}_\varepsilon(f)$ is the minimum
+        degree of a real polynomial $p$ satisfying
+        $\|p - f\|_\infty \leq \varepsilon$ over $\{0,1\}^n$.
+        It is known that
+      </p>
+      <div class="math-block">
+        $$\widetilde{\deg}_{1/3}(\mathrm{AND}_n) = \Theta(\sqrt{n})$$
+      </div>
+      <p>
+        matching the lower bound from quantum query complexity via the polynomial
+        method (Beals–Buhrman–Cleve–Mosca–de Wolf).
+      </p>
+
+      <h2>Current progress</h2>
+      <ul>
+        <li>Fourier analysis on $\{-1,+1\}^n$; Parseval and hypercontractivity</li>
+        <li>Multilinear representation and influence of variables</li>
+        <li>Working on: degree bounds via dual polynomials</li>
+        <li>Planned: connections to quantum query complexity</li>
+      </ul>
+
+      <div class="update-log">
+        <h2>Update log</h2>
+        <div class="update-entry">
+          <span class="update-date">2026-03-18</span>
+          <span class="update-note">Derived Fourier coefficients of AND; computed total influence.</span>
+        </div>
+        <div class="update-entry">
+          <span class="update-date">2026-02-22</span>
+          <span class="update-note">Covered Fourier–Walsh expansion and the KKL theorem.</span>
+        </div>
+        <div class="update-entry">
+          <span class="update-date">2026-01-30</span>
+          <span class="update-note">Project started; Boolean functions and multilinear extensions.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    &copy; <span id="year"></span> orrda
+  </div>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

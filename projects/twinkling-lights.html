@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Twinkling Lights — orrda</title>
+  <meta name="description" content="The physics of stellar scintillation and atmospheric turbulence." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+</head>
+<body>
+
+<header>
+  <nav class="container">
+    <a href="../index.html" class="nav-brand">orrda<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="../index.html#projects">Projects</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <div class="project-detail container">
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../index.html">Home</a>
+      <span class="breadcrumb-sep">›</span>
+      <a href="../index.html#projects">Projects</a>
+      <span class="breadcrumb-sep">›</span>
+      <span>Twinkling Lights</span>
+    </nav>
+
+    <div class="project-header">
+      <div class="project-header-meta">
+        <span class="card-tag physics">Physics</span>
+        <span class="card-status">
+          <span class="status-dot"></span>In progress
+        </span>
+      </div>
+      <h1 class="project-title">Twinkling Lights</h1>
+      <p class="project-subtitle">
+        Why do stars twinkle?  The physics of stellar scintillation:
+        atmospheric turbulence, Kolmogorov spectra, and intensity fluctuations.
+      </p>
+    </div>
+
+    <div class="project-body">
+
+      <h2>Atmospheric turbulence</h2>
+      <p>
+        Light from a distant star arrives as a plane wave, but passes through
+        the turbulent atmosphere before reaching the eye.  Random refractive-index
+        fluctuations $n(\mathbf{r}) = \bar{n} + \delta n(\mathbf{r})$, driven by
+        temperature inhomogeneities, distort both the phase and amplitude of the
+        wave.
+      </p>
+
+      <h2>Kolmogorov turbulence spectrum</h2>
+      <p>
+        In the inertial sub-range $\ell_0 \ll r \ll L_0$, Kolmogorov's theory
+        predicts that the structure function of the refractive-index fluctuations
+        follows a power law:
+      </p>
+      <div class="math-block" data-category="physics">
+        $$D_n(r) \equiv \langle [\delta n(\mathbf{r}_1) - \delta n(\mathbf{r}_2)]^2 \rangle
+               = C_n^2\, r^{2/3}$$
+      </div>
+      <p>
+        where $C_n^2$ is the refractive-index structure parameter (typically
+        $10^{-16}$–$10^{-13}$ m$^{-2/3}$ near the ground) and $r = |\mathbf{r}_1 - \mathbf{r}_2|$.
+      </p>
+
+      <h2>Phase perturbation and the Fried parameter</h2>
+      <p>
+        After propagating through a turbulent layer of thickness $\delta h$, the
+        wavefront acquires a phase perturbation $\phi(\mathbf{x})$ with structure
+        function
+      </p>
+      <div class="math-block" data-category="physics">
+        $$D_\phi(r) = 6.88\left(\frac{r}{r_0}\right)^{5/3}$$
+      </div>
+      <p>
+        where the <em>Fried parameter</em>
+        $r_0 = \left(0.423\,k^2 \sec\zeta \int C_n^2(h)\,dh\right)^{-3/5}$
+        characterises the coherence length of the atmosphere.
+        Typical values at a good site are $r_0 \sim 10$–$20$ cm at visible wavelengths.
+      </p>
+
+      <h2>Intensity scintillation</h2>
+      <p>
+        Amplitude fluctuations arise from propagation after the phase screen (Fresnel
+        diffraction).  For a thin screen at height $H$, scintillation is significant
+        when the Fresnel scale $r_F = \sqrt{\lambda H}$ lies in the inertial range
+        of the turbulence.  The scintillation index is
+      </p>
+      <div class="math-block" data-category="physics">
+        $$\sigma_I^2 = \frac{\langle I^2 \rangle - \langle I \rangle^2}{\langle I \rangle^2}
+                     \approx 2.24\,k^{7/6}\,\sec^{11/6}\!\zeta \int C_n^2(h)\,h^{5/6}\,dh$$
+      </div>
+      <p>
+        For a star near the horizon ($\zeta$ large) $\sigma_I^2 \gg 1$ — the star
+        twinkles violently.  Planets, with finite angular diameter, average over
+        many coherence cells and barely scintillate.
+      </p>
+
+      <h2>Current progress</h2>
+      <ul>
+        <li>Kolmogorov spectrum and Tatarskii phase structure function</li>
+        <li>Fried parameter and seeing-disk size</li>
+        <li>Working on: Rytov approximation for weak scintillation</li>
+        <li>Planned: strong scintillation regime and intensity correlation functions</li>
+      </ul>
+
+      <div class="update-log">
+        <h2>Update log</h2>
+        <div class="update-entry">
+          <span class="update-date">2026-03-21</span>
+          <span class="update-note">Derived the Fried parameter; numerical estimates for typical sites.</span>
+        </div>
+        <div class="update-entry">
+          <span class="update-date">2026-02-16</span>
+          <span class="update-note">Kolmogorov spectrum and inertial sub-range; structure functions.</span>
+        </div>
+        <div class="update-entry">
+          <span class="update-date">2026-01-28</span>
+          <span class="update-note">Project started; motivating observations and wave-optics background.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    &copy; <span id="year"></span> orrda
+  </div>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

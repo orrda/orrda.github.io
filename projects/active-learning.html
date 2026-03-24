@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Active Learning — orrda</title>
+  <meta name="description" content="Query strategies and sample-complexity bounds for active learning." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+</head>
+<body>
+
+<header>
+  <nav class="container">
+    <a href="../index.html" class="nav-brand">orrda<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="../index.html#projects">Projects</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <div class="project-detail container">
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../index.html">Home</a>
+      <span class="breadcrumb-sep">›</span>
+      <a href="../index.html#projects">Projects</a>
+      <span class="breadcrumb-sep">›</span>
+      <span>Active Learning</span>
+    </nav>
+
+    <div class="project-header">
+      <div class="project-header-meta">
+        <span class="card-tag math">Mathematics</span>
+        <span class="card-status">
+          <span class="status-dot"></span>In progress
+        </span>
+      </div>
+      <h1 class="project-title">Active Learning</h1>
+      <p class="project-subtitle">
+        Query strategies and sample-complexity bounds for learning from adaptively
+        chosen labelled examples.
+      </p>
+    </div>
+
+    <div class="project-body">
+
+      <h2>Setting</h2>
+      <p>
+        In the standard PAC learning model a learner receives $m$ labelled examples
+        drawn i.i.d. from an unknown distribution $\mathcal{D}$ and must output a
+        hypothesis $h$ with small generalisation error $\mathrm{err}(h)$.
+        <em>Active learning</em> relaxes the i.i.d. assumption: the learner may
+        choose which points to query an oracle for labels, aiming to achieve the
+        same error with far fewer labels.
+      </p>
+
+      <h2>Version spaces and query-by-disagreement</h2>
+      <p>
+        Given a hypothesis class $\mathcal{H}$ and a set of unlabelled points,
+        define the <em>version space</em>
+        $V_S = \{h \in \mathcal{H} : h \text{ consistent with } S\}$.
+        The <em>query-by-committee</em> strategy labels a point $x$ when the
+        committee of hypotheses disagrees:
+      </p>
+      <div class="math-block">
+        $$x^* = \arg\max_{x \in U}\; \mathrm{H}\!\left[\mathbb{P}_{h \sim V_S}[h(x)=1]\right]$$
+      </div>
+      <p>
+        where $\mathrm{H}[\cdot]$ is the binary entropy.  The <em>disagreement
+        coefficient</em> $\theta$ of $\mathcal{H}$ under $\mathcal{D}$ governs the
+        speed-up over passive learning.
+      </p>
+
+      <h2>Sample complexity</h2>
+      <p>
+        For a hypothesis class of VC dimension $d$, passive learning requires
+        $\tilde{O}(d/\varepsilon)$ labels to achieve error $\varepsilon$.
+        Under favourable geometry, active learning can reduce this to
+        $\tilde{O}(d \log(1/\varepsilon))$ — an exponential improvement in
+        $1/\varepsilon$.
+      </p>
+      <div class="math-block">
+        $$m_{\text{active}} = \tilde{O}\!\left(\theta^2 d \log\frac{1}{\varepsilon}\right)
+          \quad \text{vs.} \quad
+          m_{\text{passive}} = \tilde{O}\!\left(\frac{d}{\varepsilon}\right)$$
+      </div>
+
+      <h2>Uncertainty sampling</h2>
+      <p>
+        The simplest practical strategy is <em>uncertainty sampling</em>: always
+        query the unlabelled point on which the current model is least confident.
+        For a probabilistic classifier $p_\theta(y|x)$,
+      </p>
+      <div class="math-block">
+        $$x^* = \arg\min_{x \in U}\; \max_y\; p_\theta(y \mid x)$$
+      </div>
+      <p>
+        Despite its simplicity, theoretical guarantees are weaker than for
+        disagreement-based methods; this gap is a focus of ongoing work.
+      </p>
+
+      <h2>Current progress</h2>
+      <ul>
+        <li>PAC learning review and VC dimension bounds</li>
+        <li>Disagreement coefficient and the Hanneke framework</li>
+        <li>Worked through: A<sup>2</sup> algorithm (Balcan–Beygelzimer–Langford)</li>
+        <li>Working on: agnostic active learning and noise-tolerant bounds</li>
+        <li>Planned: connections to optimal experiment design</li>
+      </ul>
+
+      <div class="update-log">
+        <h2>Update log</h2>
+        <div class="update-entry">
+          <span class="update-date">2026-03-20</span>
+          <span class="update-note">Added notes on the disagreement coefficient and exponential improvements.</span>
+        </div>
+        <div class="update-entry">
+          <span class="update-date">2026-02-10</span>
+          <span class="update-note">Reviewed PAC model and VC dimension; started version-space analysis.</span>
+        </div>
+        <div class="update-entry">
+          <span class="update-date">2026-01-18</span>
+          <span class="update-note">Project started.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    &copy; <span id="year"></span> orrda
+  </div>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
