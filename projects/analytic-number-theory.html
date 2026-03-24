@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Riemann Zeta Function — orrda</title>
+  <meta name="description" content="Analytic continuation of the Riemann zeta function and its connection to prime distribution." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+</head>
+<body>
+
+<header>
+  <nav class="container">
+    <a href="../index.html" class="nav-brand">orrda<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="../index.html#projects">Projects</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <div class="project-detail container">
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../index.html">Home</a>
+      <span class="breadcrumb-sep">›</span>
+      <a href="../index.html#projects">Projects</a>
+      <span class="breadcrumb-sep">›</span>
+      <span>Riemann Zeta Function</span>
+    </nav>
+
+    <div class="project-header">
+      <div class="project-header-meta">
+        <span class="card-tag math">Mathematics</span>
+        <span class="card-status">
+          <span class="status-dot"></span>In progress
+        </span>
+      </div>
+      <h1 class="project-title">The Riemann Zeta Function</h1>
+      <p class="project-subtitle">
+        Analytic continuation, the functional equation, and the deep connection
+        between $\zeta(s)$ and the distribution of prime numbers.
+      </p>
+    </div>
+
+    <div class="project-body">
+
+      <h2>Definition and Euler product</h2>
+      <p>
+        For $\operatorname{Re}(s) > 1$ the zeta function is defined by the
+        absolutely convergent Dirichlet series
+      </p>
+      <div class="math-block">
+        $$\zeta(s) = \sum_{n=1}^{\infty} \frac{1}{n^s}
+                   = \prod_{p\,\text{prime}} \frac{1}{1-p^{-s}}$$
+      </div>
+      <p>
+        The Euler product expresses $\zeta(s)$ as a product over primes, encoding
+        the fundamental theorem of arithmetic analytically.
+      </p>
+
+      <h2>Analytic continuation and functional equation</h2>
+      <p>
+        By the method of the Gamma function $\Gamma(s)$ and the Jacobi theta function,
+        $\zeta(s)$ extends to a meromorphic function on all of $\mathbb{C}$ with a
+        simple pole at $s = 1$.  It satisfies the functional equation
+      </p>
+      <div class="math-block">
+        $$\xi(s) = \xi(1-s), \qquad
+          \xi(s) := \frac{1}{2}s(s-1)\pi^{-s/2}\Gamma\!\left(\tfrac{s}{2}\right)\zeta(s)$$
+      </div>
+      <p>
+        This reflects the symmetry $s \leftrightarrow 1-s$ of the completed zeta function.
+      </p>
+
+      <h2>The Riemann Hypothesis</h2>
+      <p>
+        All non-trivial zeros of $\zeta(s)$ lie on the critical line
+        $\operatorname{Re}(s) = \tfrac{1}{2}$.
+        This is one of the Millennium Prize Problems and remains open.
+      </p>
+      <div class="math-block">
+        $$\zeta\!\left(\tfrac{1}{2} + it\right) = 0
+          \quad \Longrightarrow \quad t \in \mathbb{R}
+          \quad (\text{conjectured})$$
+      </div>
+
+      <h2>Prime Number Theorem</h2>
+      <p>
+        The location of the zeros controls the error term in the prime-counting
+        function.  The Prime Number Theorem,
+      </p>
+      <div class="math-block">
+        $$\pi(x) \sim \frac{x}{\ln x} \quad (x \to \infty),$$
+      </div>
+      <p>
+        follows from showing that $\zeta(s) \neq 0$ on the line
+        $\operatorname{Re}(s) = 1$.
+      </p>
+
+      <h2>Current progress</h2>
+      <ul>
+        <li>Euler product and convergence analysis</li>
+        <li>Analytic continuation via the theta function and Mellin transform</li>
+        <li>Proof of the functional equation</li>
+        <li>Working on: explicit formula $\psi(x) = x - \sum_\rho \frac{x^\rho}{\rho} - \cdots$</li>
+        <li>Planned: zero-free regions and the proof of the Prime Number Theorem</li>
+      </ul>
+
+      <div class="update-log">
+        <h2>Update log</h2>
+        <div class="update-entry">
+          <span class="update-date">2026-03-22</span>
+          <span class="update-note">Completed proof of the functional equation via theta functions.</span>
+        </div>
+        <div class="update-entry">
+          <span class="update-date">2026-02-25</span>
+          <span class="update-note">Analytic continuation via the Mellin transform.</span>
+        </div>
+        <div class="update-entry">
+          <span class="update-date">2026-01-30</span>
+          <span class="update-note">Started project; Dirichlet series, Euler product, and convergence.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    &copy; <span id="year"></span> orrda
+  </div>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

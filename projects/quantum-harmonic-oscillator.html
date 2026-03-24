@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quantum Harmonic Oscillator — orrda</title>
+  <meta name="description" content="The quantum harmonic oscillator via ladder operators, coherent states, and path integrals." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+</head>
+<body>
+
+<header>
+  <nav class="container">
+    <a href="../index.html" class="nav-brand">orrda<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="../index.html#projects">Projects</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <div class="project-detail container">
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../index.html">Home</a>
+      <span class="breadcrumb-sep">›</span>
+      <a href="../index.html#projects">Projects</a>
+      <span class="breadcrumb-sep">›</span>
+      <span>Quantum Harmonic Oscillator</span>
+    </nav>
+
+    <div class="project-header">
+      <div class="project-header-meta">
+        <span class="card-tag physics">Physics</span>
+        <span class="card-status">
+          <span class="status-dot"></span>In progress
+        </span>
+      </div>
+      <h1 class="project-title">Quantum Harmonic Oscillator</h1>
+      <p class="project-subtitle">
+        Ladder operators, coherent states, and path integral treatment of the
+        fundamental quantum system.
+      </p>
+    </div>
+
+    <div class="project-body">
+
+      <h2>The Hamiltonian</h2>
+      <p>
+        The quantum harmonic oscillator is defined by the Hamiltonian
+      </p>
+      <div class="math-block" data-category="physics">
+        $$\hat{H} = \frac{\hat{p}^2}{2m} + \frac{1}{2}m\omega^2 \hat{x}^2$$
+      </div>
+      <p>
+        where $[\hat{x}, \hat{p}] = i\hbar$.
+      </p>
+
+      <h2>Ladder operators</h2>
+      <p>
+        We introduce the annihilation and creation operators
+      </p>
+      <div class="math-block" data-category="physics">
+        $$\hat{a} = \sqrt{\frac{m\omega}{2\hbar}}\!\left(\hat{x} + \frac{i\hat{p}}{m\omega}\right), \qquad
+          \hat{a}^\dagger = \sqrt{\frac{m\omega}{2\hbar}}\!\left(\hat{x} - \frac{i\hat{p}}{m\omega}\right)$$
+      </div>
+      <p>
+        satisfying $[\hat{a}, \hat{a}^\dagger] = 1$, so that
+        $\hat{H} = \hbar\omega\!\left(\hat{a}^\dagger\hat{a} + \tfrac{1}{2}\right)$.
+      </p>
+
+      <h2>Energy spectrum</h2>
+      <p>
+        The energy eigenstates $|n\rangle$ satisfy
+      </p>
+      <div class="math-block" data-category="physics">
+        $$E_n = \hbar\omega\!\left(n + \tfrac{1}{2}\right), \quad n = 0, 1, 2, \ldots$$
+      </div>
+      <p>
+        The ground state $|0\rangle$ is annihilated by $\hat{a}$:
+        $\hat{a}|0\rangle = 0$, giving the Gaussian wave function
+        $\psi_0(x) = \left(\frac{m\omega}{\pi\hbar}\right)^{1/4} e^{-m\omega x^2 / 2\hbar}$.
+      </p>
+
+      <h2>Coherent states</h2>
+      <p>
+        Coherent states $|\alpha\rangle$ are eigenstates of $\hat{a}$:
+        $\hat{a}|\alpha\rangle = \alpha|\alpha\rangle$, $\alpha \in \mathbb{C}$.
+        They minimise the Heisenberg uncertainty and form an overcomplete basis for the Fock space.
+      </p>
+      <div class="math-block" data-category="physics">
+        $$|\alpha\rangle = e^{-|\alpha|^2/2} \sum_{n=0}^{\infty} \frac{\alpha^n}{\sqrt{n!}}|n\rangle$$
+      </div>
+
+      <h2>Path integral formulation</h2>
+      <p>
+        The propagator $K(x_f, t_f; x_i, t_i)$ can be computed as a Feynman path integral,
+        yielding the exact result
+      </p>
+      <div class="math-block" data-category="physics">
+        $$K = \sqrt{\frac{m\omega}{2\pi i\hbar\sin\omega T}}
+              \exp\!\left(\frac{im\omega}{2\hbar\sin\omega T}
+              \bigl[(x_f^2 + x_i^2)\cos\omega T - 2x_f x_i\bigr]\right)$$
+      </div>
+
+      <h2>Current progress</h2>
+      <ul>
+        <li>Full algebraic treatment via ladder operators complete</li>
+        <li>Coherent state theory and Wigner function</li>
+        <li>Working on: path integral derivation of the propagator</li>
+        <li>Planned: connection to quantum field theory (free scalar field)</li>
+      </ul>
+
+      <div class="update-log">
+        <h2>Update log</h2>
+        <div class="update-entry">
+          <span class="update-date">2026-03-15</span>
+          <span class="update-note">Added section on coherent states and the Wigner function.</span>
+        </div>
+        <div class="update-entry">
+          <span class="update-date">2026-02-01</span>
+          <span class="update-note">Completed algebraic treatment with ladder operators.</span>
+        </div>
+        <div class="update-entry">
+          <span class="update-date">2026-01-12</span>
+          <span class="update-note">Project started; wave-function approach and energy spectrum.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    &copy; <span id="year"></span> orrda
+  </div>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Riemannian Geometry &amp; Curvature — orrda</title>
+  <meta name="description" content="Riemannian manifolds, curvature tensors, geodesics, and connections to general relativity." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+</head>
+<body>
+
+<header>
+  <nav class="container">
+    <a href="../index.html" class="nav-brand">orrda<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="../index.html#projects">Projects</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <div class="project-detail container">
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../index.html">Home</a>
+      <span class="breadcrumb-sep">›</span>
+      <a href="../index.html#projects">Projects</a>
+      <span class="breadcrumb-sep">›</span>
+      <span>Differential Geometry</span>
+    </nav>
+
+    <div class="project-header">
+      <div class="project-header-meta">
+        <span class="card-tag math">Mathematics</span>
+        <span class="card-status">
+          <span class="status-dot"></span>In progress
+        </span>
+      </div>
+      <h1 class="project-title">Riemannian Geometry &amp; Curvature</h1>
+      <p class="project-subtitle">
+        Riemannian manifolds, the curvature tensor, geodesics, and the bridge
+        to Einstein's theory of gravity.
+      </p>
+    </div>
+
+    <div class="project-body">
+
+      <h2>Riemannian manifolds</h2>
+      <p>
+        A <em>Riemannian manifold</em> $(M, g)$ is a smooth manifold $M$
+        equipped with a smooth, symmetric, positive-definite $(0,2)$-tensor
+        field $g$ (the metric).  The metric assigns an inner product to each
+        tangent space $T_p M$.
+      </p>
+
+      <h2>The Levi-Civita connection</h2>
+      <p>
+        There is a unique torsion-free metric-compatible connection $\nabla$
+        (the Levi-Civita connection) whose Christoffel symbols are
+      </p>
+      <div class="math-block">
+        $$\Gamma^\sigma_{\mu\nu}
+          = \frac{1}{2}g^{\sigma\rho}
+            \!\left(\partial_\mu g_{\nu\rho}
+                   + \partial_\nu g_{\mu\rho}
+                   - \partial_\rho g_{\mu\nu}\right)$$
+      </div>
+
+      <h2>Geodesics</h2>
+      <p>
+        A curve $\gamma : I \to M$ is a <em>geodesic</em> if it parallel-transports
+        its own tangent vector:
+      </p>
+      <div class="math-block">
+        $$\frac{d^2 x^\sigma}{d\tau^2}
+          + \Gamma^\sigma_{\mu\nu}
+            \frac{dx^\mu}{d\tau}\frac{dx^\nu}{d\tau} = 0$$
+      </div>
+      <p>
+        Geodesics locally minimise (or extremise) the length functional and
+        generalise the notion of straight lines to curved spaces.
+      </p>
+
+      <h2>The Riemann curvature tensor</h2>
+      <p>
+        The Riemann tensor measures the failure of second covariant derivatives
+        to commute:
+      </p>
+      <div class="math-block">
+        $$R^\rho{}_{\sigma\mu\nu}
+          = \partial_\mu\Gamma^\rho_{\nu\sigma}
+          - \partial_\nu\Gamma^\rho_{\mu\sigma}
+          + \Gamma^\rho_{\mu\lambda}\Gamma^\lambda_{\nu\sigma}
+          - \Gamma^\rho_{\nu\lambda}\Gamma^\lambda_{\mu\sigma}$$
+      </div>
+
+      <h2>Ricci tensor and scalar curvature</h2>
+      <p>
+        The Ricci tensor $R_{\mu\nu} = R^\rho{}_{\mu\rho\nu}$ and the Ricci
+        scalar $R = g^{\mu\nu}R_{\mu\nu}$ are key contractions used in
+        Einstein's field equations.
+      </p>
+
+      <h2>Current progress</h2>
+      <ul>
+        <li>Smooth manifolds, tangent bundles, differential forms</li>
+        <li>Connections, parallel transport, Christoffel symbols</li>
+        <li>Riemann, Ricci, and Einstein tensors computed</li>
+        <li>Working on: Gauss–Bonnet theorem and characteristic classes</li>
+        <li>Planned: bridge to general relativity via Einstein's equations</li>
+      </ul>
+
+      <div class="update-log">
+        <h2>Update log</h2>
+        <div class="update-entry">
+          <span class="update-date">2026-03-10</span>
+          <span class="update-note">Added explicit computations for the sphere $S^2$ and the torus.</span>
+        </div>
+        <div class="update-entry">
+          <span class="update-date">2026-02-18</span>
+          <span class="update-note">Covered the Riemann, Ricci, and Weyl tensors.</span>
+        </div>
+        <div class="update-entry">
+          <span class="update-date">2026-01-20</span>
+          <span class="update-note">Started project with smooth manifolds and the tangent bundle.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    &copy; <span id="year"></span> orrda
+  </div>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

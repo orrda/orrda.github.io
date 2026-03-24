@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spectral Theory of Compact Operators — orrda</title>
+  <meta name="description" content="Studying the spectral decomposition of compact self-adjoint operators on Hilbert spaces." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+</head>
+<body>
+
+<header>
+  <nav class="container">
+    <a href="../index.html" class="nav-brand">orrda<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="../index.html#projects">Projects</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <div class="project-detail container">
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../index.html">Home</a>
+      <span class="breadcrumb-sep">›</span>
+      <a href="../index.html#projects">Projects</a>
+      <span class="breadcrumb-sep">›</span>
+      <span>Spectral Theory</span>
+    </nav>
+
+    <!-- Header -->
+    <div class="project-header">
+      <div class="project-header-meta">
+        <span class="card-tag math">Mathematics</span>
+        <span class="card-status">
+          <span class="status-dot"></span>In progress
+        </span>
+      </div>
+      <h1 class="project-title">Spectral Theory of Compact Operators</h1>
+      <p class="project-subtitle">
+        Spectral decomposition of compact self-adjoint operators on Hilbert spaces,
+        with applications to Fredholm integral equations.
+      </p>
+    </div>
+
+    <!-- Body -->
+    <div class="project-body">
+
+      <h2>Overview</h2>
+      <p>
+        The spectral theorem for compact self-adjoint operators is one of the
+        cornerstones of functional analysis.  It says that every compact
+        self-adjoint operator $T : H \to H$ on a Hilbert space $H$ admits an
+        orthonormal basis of eigenvectors whose corresponding eigenvalues form a
+        sequence converging to zero.
+      </p>
+
+      <h2>Key definitions</h2>
+      <p>
+        An operator $T : H \to H$ is <em>compact</em> if it maps bounded sets to
+        relatively compact sets.  It is <em>self-adjoint</em> if
+        $\langle Tx, y\rangle = \langle x, Ty\rangle$ for all $x, y \in H$.
+      </p>
+
+      <div class="math-block">
+        $$\sigma(T) \setminus \{0\} = \{\lambda_1, \lambda_2, \ldots\},
+        \quad \lambda_n \to 0 \text{ as } n \to \infty$$
+      </div>
+
+      <h2>Spectral Theorem (compact self-adjoint)</h2>
+      <p>
+        Let $T$ be a compact self-adjoint operator on an infinite-dimensional
+        separable Hilbert space $H$.  There exists a countable orthonormal set
+        $\{e_n\}$ of eigenvectors and a corresponding sequence of real eigenvalues
+        $\{\lambda_n\}$ such that:
+      </p>
+      <ul>
+        <li>$T e_n = \lambda_n e_n$ for all $n$</li>
+        <li>$|\lambda_1| \geq |\lambda_2| \geq \cdots \geq 0$</li>
+        <li>$\lambda_n \to 0$</li>
+        <li>$T x = \sum_{n} \lambda_n \langle x, e_n \rangle e_n$ for all $x \in H$</li>
+      </ul>
+
+      <div class="math-block">
+        $$T = \sum_{n=1}^{\infty} \lambda_n \langle \cdot,\, e_n \rangle\, e_n$$
+      </div>
+
+      <h2>Application: Fredholm integral equations</h2>
+      <p>
+        A Fredholm integral equation of the second kind,
+      </p>
+      <div class="math-block">
+        $$\phi(x) - \mu \int_a^b K(x,t)\,\phi(t)\,dt = f(x),$$
+      </div>
+      <p>
+        where $K \in L^2([a,b]^2)$ is a symmetric kernel, can be solved via the
+        eigenfunction expansion of the associated compact self-adjoint operator
+        $(T\phi)(x) = \int_a^b K(x,t)\phi(t)\,dt$.
+      </p>
+
+      <h2>Current progress</h2>
+      <ul>
+        <li>Proved compactness of Hilbert–Schmidt operators</li>
+        <li>Proved the spectral theorem via the minimax principle</li>
+        <li>Worked through Sturm–Liouville theory as a concrete instance</li>
+        <li>Working on: applications to partial differential equations</li>
+      </ul>
+
+      <!-- Update log -->
+      <div class="update-log">
+        <h2>Update log</h2>
+        <div class="update-entry">
+          <span class="update-date">2026-03-20</span>
+          <span class="update-note">Added section on Sturm–Liouville theory.</span>
+        </div>
+        <div class="update-entry">
+          <span class="update-date">2026-02-14</span>
+          <span class="update-note">Completed proof of the spectral theorem via minimax principle.</span>
+        </div>
+        <div class="update-entry">
+          <span class="update-date">2026-01-08</span>
+          <span class="update-note">Started project; notes on compact operators and Hilbert–Schmidt class.</span>
+        </div>
+      </div>
+
+    </div><!-- /project-body -->
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    &copy; <span id="year"></span> orrda
+  </div>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
