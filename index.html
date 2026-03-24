@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>orrda — Math &amp; Physics Projects</title>
+  <meta name="description" content="Ongoing research projects in mathematics and physics." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <!-- KaTeX for math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+</head>
+<body>
+
+<!-- ======= Navigation ======= -->
+<header>
+  <nav class="container">
+    <span class="nav-brand">orrda<span>.</span></span>
+    <ul class="nav-links">
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- ======= Hero ======= -->
+<main>
+  <section class="hero container">
+    <div class="hero-eyebrow">Ongoing Research</div>
+    <h1 class="hero-title">
+      Projects in<br />
+      <span class="highlight-math">Mathematics</span> &amp;
+      <span class="highlight-physics">Physics</span>
+    </h1>
+    <p class="hero-description">
+      A living record of my explorations across pure mathematics, theoretical physics,
+      and the beautiful places where they meet.
+    </p>
+    <a href="#projects" class="hero-cta">
+      Browse projects
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8 3v10M3 8l5 5 5-5"/>
+      </svg>
+    </a>
+  </section>
+
+  <!-- ======= Projects ======= -->
+  <section id="projects" class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="section-divider"></span>Projects
+        </h2>
+        <span class="section-count" id="project-count"></span>
+      </div>
+
+      <!-- Filter buttons -->
+      <div class="filter-tabs" role="group" aria-label="Filter projects by category">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="math">Mathematics</button>
+        <button class="filter-btn" data-filter="physics">Physics</button>
+      </div>
+
+      <!-- Project cards -->
+      <div class="projects-grid" id="projects-grid">
+
+        <!-- Project 1: Active Learning -->
+        <article class="project-card" data-category="math">
+          <div class="card-meta">
+            <span class="card-tag math">Mathematics</span>
+            <span class="card-status">
+              <span class="status-dot"></span>In progress
+            </span>
+          </div>
+          <h3 class="card-title">
+            <a href="projects/active-learning.html">Active Learning</a>
+          </h3>
+          <p class="card-description">
+            Studying query strategies and sample-complexity bounds for active learning,
+            where a learner adaptively selects which data points to label.
+          </p>
+          <div class="card-topics">
+            <span class="topic-chip">machine learning</span>
+            <span class="topic-chip">query strategies</span>
+            <span class="topic-chip">VC dimension</span>
+          </div>
+        </article>
+
+        <!-- Project 2: Analytic AND function -->
+        <article class="project-card" data-category="math">
+          <div class="card-meta">
+            <span class="card-tag math">Mathematics</span>
+            <span class="card-status">
+              <span class="status-dot"></span>In progress
+            </span>
+          </div>
+          <h3 class="card-title">
+            <a href="projects/analytic-and-function.html">Analytic &ldquo;AND&rdquo; Function</a>
+          </h3>
+          <p class="card-description">
+            Constructing and analysing analytic (polynomial and holomorphic) approximations
+            to the Boolean AND function, with connections to circuit complexity.
+          </p>
+          <div class="card-topics">
+            <span class="topic-chip">Boolean functions</span>
+            <span class="topic-chip">approximation theory</span>
+            <span class="topic-chip">Fourier analysis</span>
+          </div>
+        </article>
+
+        <!-- Project 3: Self-similar PDEs -->
+        <article class="project-card" data-category="math">
+          <div class="card-meta">
+            <span class="card-tag math">Mathematics</span>
+            <span class="card-status">
+              <span class="status-dot"></span>In progress
+            </span>
+          </div>
+          <h3 class="card-title">
+            <a href="projects/self-similar-pdes.html">Self-similar Solutions to Non-linear PDEs</a>
+          </h3>
+          <p class="card-description">
+            Exploiting scaling symmetries to find self-similar (Barenblatt-type) solutions
+            to non-linear parabolic and hyperbolic PDEs.
+          </p>
+          <div class="card-topics">
+            <span class="topic-chip">PDEs</span>
+            <span class="topic-chip">scaling symmetry</span>
+            <span class="topic-chip">blow-up</span>
+          </div>
+        </article>
+
+        <!-- Project 4: Circular Binaries Mass Transfer -->
+        <article class="project-card" data-category="physics">
+          <div class="card-meta">
+            <span class="card-tag physics">Physics</span>
+            <span class="card-status">
+              <span class="status-dot"></span>In progress
+            </span>
+          </div>
+          <h3 class="card-title">
+            <a href="projects/circular-binaries.html">Circular Binaries Mass Transfer</a>
+          </h3>
+          <p class="card-description">
+            Modelling mass transfer in circular binary star systems via Roche lobe overflow,
+            accretion disk formation, and the resulting orbital evolution.
+          </p>
+          <div class="card-topics">
+            <span class="topic-chip">astrophysics</span>
+            <span class="topic-chip">Roche lobe</span>
+            <span class="topic-chip">accretion</span>
+          </div>
+        </article>
+
+        <!-- Project 5: Twinkling Lights -->
+        <article class="project-card" data-category="physics">
+          <div class="card-meta">
+            <span class="card-tag physics">Physics</span>
+            <span class="card-status">
+              <span class="status-dot"></span>In progress
+            </span>
+          </div>
+          <h3 class="card-title">
+            <a href="projects/twinkling-lights.html">Twinkling Lights</a>
+          </h3>
+          <p class="card-description">
+            The physics of stellar scintillation: how atmospheric turbulence causes
+            rapid intensity and phase fluctuations in starlight reaching the ground.
+          </p>
+          <div class="card-topics">
+            <span class="topic-chip">atmospheric optics</span>
+            <span class="topic-chip">turbulence</span>
+            <span class="topic-chip">scintillation</span>
+          </div>
+        </article>
+
+        <!-- Project 6: Stochastic Butcher Matrices -->
+        <article class="project-card" data-category="math">
+          <div class="card-meta">
+            <span class="card-tag math">Mathematics</span>
+            <span class="card-status">
+              <span class="status-dot"></span>In progress
+            </span>
+          </div>
+          <h3 class="card-title">
+            <a href="projects/stochastic-butcher.html">Stochastic Butcher Matrices</a>
+          </h3>
+          <p class="card-description">
+            Extending Butcher's B-series and Runge–Kutta tableaux to the stochastic setting,
+            deriving order conditions for numerical methods on SDEs.
+          </p>
+          <div class="card-topics">
+            <span class="topic-chip">numerical analysis</span>
+            <span class="topic-chip">SDEs</span>
+            <span class="topic-chip">Runge–Kutta</span>
+          </div>
+        </article>
+
+      </div><!-- /projects-grid -->
+    </div>
+  </section>
+
+  <!-- ======= About ======= -->
+  <section id="about" class="section" style="border-top: 1px solid var(--clr-border);">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="section-divider"></span>About
+        </h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            I'm a student and independent researcher with a deep passion for the
+            mathematical structures that underlie physical reality.  These pages
+            collect my working notes, proofs, and calculations — updated regularly
+            as projects develop.
+          </p>
+          <p>
+            Everything here is a work in progress.  I write as I learn, so expect
+            rough edges alongside polished results.
+          </p>
+        </div>
+        <div>
+          <ul class="interests-list">
+            <li>Functional analysis &amp; operator theory</li>
+            <li>Differential geometry &amp; topology</li>
+            <li>Quantum mechanics &amp; quantum field theory</li>
+            <li>General relativity &amp; cosmology</li>
+            <li>Analytic number theory</li>
+            <li>Statistical mechanics &amp; critical phenomena</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= Contact ======= -->
+  <section id="contact" class="contact-section container">
+    <h2>Get in touch</h2>
+    <p>Questions, suggestions, or just want to talk math?  Find me here:</p>
+    <div class="contact-links">
+      <a href="https://github.com/orrda" class="contact-link" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16" fill="currentColor">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
+            0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13
+            -.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66
+            .07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15
+            -.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0
+            1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82
+            1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01
+            1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+        GitHub
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    &copy; <span id="year"></span> orrda &mdash; Built with HTML, CSS &amp; KaTeX
+  </div>
+</footer>
+
+<script>
+  // Set copyright year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Filter logic
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.project-card');
+  const countEl = document.getElementById('project-count');
+
+  function updateCount() {
+    const visible = [...cards].filter(c => !c.classList.contains('hidden')).length;
+    countEl.textContent = visible + ' project' + (visible !== 1 ? 's' : '');
+  }
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      cards.forEach(card => {
+        const match = filter === 'all' || card.dataset.category === filter;
+        card.classList.toggle('hidden', !match);
+      });
+      updateCount();
+    });
+  });
+
+  updateCount();
+</script>
+
+</body>
+</html>
