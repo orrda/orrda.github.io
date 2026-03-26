@@ -53,7 +53,54 @@
     </div>
 
     <div class="project-body">
-      <!-- content coming soon -->
+      <h2>Introduction</h2>
+      <p>
+        While working on a different problem (<a href="../projects/self-similar-pdes.html">Self-similar PDEs</a>), I wanted to terminate a ODE solver if it crossed some boundary 1 or some boundary 2.
+        Usually I would just use some root finding algorithm to find a crossing,
+        it led me to think I should construct some function with is negative if I have crossed either of the boundaries, and positive iff I haven't crossed either of the boundaries.
+        How hard can it be?
+      </p>
+      <p>
+        At first glance, just using a "MIN" function works, it essentially encodes an "AND" function if positive was <code>TRUE</code> and negative was <code>FALSE</code>.
+        However since many root finding algorithms (such as Newton's method) relay on using the derivative we should try to construct a "nicer" function.
+        As it turns out, we can construct a smooth "AND" function but it is impossible to do such for an analytic function.
+      </p>
+      <h2>Problem Statement</h2>
+      <p>
+        We call a function $f:\mathbb{R}^2 \to \mathbb{R}$ an <strong>"AND"</strong> function if:
+        <ul>
+          <li> if $x>0$ <b>and</b> $y>0$, then $f(x,y)>0$</li>
+          <li> if $x<0$ <b>or</b> $y<0$, then $f(x,y)<0$</li>
+        </ul>
+      </p>
+      <p>
+        As we mentioned earlier, the simplest way is to just use a "MIN" function, which is continuous everywhere. 
+        and anywhere where $x \neq y$ it also smooth and analytic.
+      </p>
+      <p>
+        We can also construct a "AND" function which is smooth everywhere, for example:
+        Let 
+        $$
+        \phi(t) = \begin{cases} e^{-1/t} & \text{if } t > 0 \\ 0 & \text{if } t \le 0 \end{cases}
+        $$
+        then we can define:
+        $$
+          f(x,y) = \phi(x)\phi(y) - \phi(-x) - \phi(-y)
+        $$
+        which is smooth and satisfies the "AND" condition.
+      </p>
+      <h2>Non-analyticity of "AND"</h2>
+      <p>
+        Constructing an analytic "AND" function is impossible, We will now show a formal proof, and later we will discuss what it means.
+      </p>
+      <p>
+        The proof focuses on the behavior of the the function in the neighborhood of $(0,0)$.
+      </p>
+      <ul>
+        <li> Since $f(x,y)$ is analytic, there exists some $r>0$ S.T. </li>
+        <li> </li>
+      </ul>
+
     </div>
 
   </div>
