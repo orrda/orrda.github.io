@@ -8,15 +8,67 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../style.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"
-    onload="renderMathInElement(document.body, {
-      delimiters: [
-        {left: '$$', right: '$$', display: true},
-        {left: '$', right: '$', display: false}
-      ]
-    });"></script>
+  
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        tags: 'ams'
+      },
+      chtml: {
+        displayAlign: 'center'
+      }
+    };
+  </script>
+  <script id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+  </script>
+
+  <style>
+    /* Scoped styles specifically for the thesis content to look good in your template */
+    .thesis-content {
+      line-height: 1.6;
+      color: #333;
+    }
+    .thesis-content h2 {
+      margin-top: 40px;
+      border-bottom: 1px solid #eaeaea;
+      padding-bottom: 5px;
+    }
+    .thesis-content h3 {
+      margin-top: 30px;
+      color: #7d8590;
+    }
+    .thesis-content figure {
+      text-align: center;
+      margin: 40px 0;
+    }
+    .thesis-content figcaption {
+      font-size: 0.9em;
+      margin-top: 15px;
+      color: #555;
+    }
+    .thesis-content a {
+      color: #0066cc;
+      text-decoration: none;
+    }
+    .thesis-content a:hover {
+      text-decoration: underline;
+    }
+    .thesis-content ul {
+      margin-bottom: 20px;
+      padding-left: 20px;
+    }
+    .thesis-content .references p {
+      margin-bottom: 15px;
+      padding-left: 30px;
+      text-indent: -30px;
+    }
+    mjx-container {
+      color: #b5bcc3;
+    }
+  </style>
 </head>
 <body>
 
@@ -49,11 +101,443 @@
           <span class="status-dot"></span>In progress
         </span>
       </div>
-      <h1 class="project-title">Circular Binaries Mass Transfer</h1>
+      <h1 class="project-title">Mass Transfer in Close Binaries</h1>
     </div>
 
     <div class="project-body">
-      <!-- content coming soon -->
+      <div class="thesis-content">
+        <h2>Abstract</h2>
+        <p>Mass transfer in close binaries is commonly modeled as an isentropic outflow through the first Lagrange point ($L_1$), yet under sufficiently rapid overflow material can also escape through the outer Lagrange point ($L_2$), carrying angular momentum away from the system. In this thesis, carried out in parallel with 3D hydrodynamical simulations, we develop an analytic, hydrodynamically motivated framework for quantifying the mass-loss rate through the Lagrange point region (LPR) and for predicting the fraction of the total outflow that is ejected via $L_2$. Binary star systems, which constitute approximately half of all observed stellar configurations, are fundamental to modern astrophysics.</p>
+
+        <h2>1. Introduction</h2>
+        <p>It all starts with two objects $M_1$ and $M_2$ orbiting each other. In this work we focus on cases with constant angular velocity (circular orbit) $\Omega=\sqrt{G(M_1+M_2)/a^3}$, where $a$ is the separation distance between the masses. By approximating them as point masses and preforming a coordinate transformation to a co-rotating frame where both masses lay on the $\hat{x}$ axis, we obtain that in the co-rotating frame a test particle moves under an effective potential and a coriolis force (<a href="#Roche1873">Roche 1873</a>):</p>
+        
+        $$
+        \begin{equation}
+             \ddot{\vec{r}} =-\vec{\nabla} \phi - 2(\Omega \hat{z}) \times \dot{\vec{r}}
+        \end{equation}
+        $$
+        
+        <p>where the effective potential</p>
+        
+        $$
+        \begin{equation}
+            \label{eq:pot}\phi(\vec{r}) = -\frac{G \left( M_1 + M_2 \right)}{a}\left( \frac{1-\mu}{\left|\vec{r}/a\right|} + \frac{\mu}{\left|\vec{r}/a-\hat{x}\right|} + \frac{1}{2}\left( \vec{r}/a - \mu \hat{x} \right)^2 \right) 
+        \end{equation}
+        $$
+        
+        <p>Where $\mu = M_2/(M_1 + M_2)$. The first two terms in the effective potential are the standard gravitational potential and the centrifugal potential. This sets the stage for computing trajectory of a test particle in the two body system, known as the planar circular restricted three body problem (CR3BP). The Coriolis force does not exert any work, so the mechanical energy of a test particle is conserved as a sum of it's kinetic energy and his negligible mass times the effective potential \ref{eq:pot}. This is known as the Jacobi integral (<a href="#Jacobi1836">Jacobi 1836</a>), which is a conserved quantity arising from the symmetry of rotation and simultaneous translation in time.</p>
+        
+        $$
+        \begin{equation}
+            \phi(r) + \frac{1}{2}\dot{r}^2 = C_J, \quad \frac{d C_J}{dt} = 0
+        \end{equation}
+        $$
+
+        <p>In figure \ref{fig:Roche_pot} equi-potential lines of \ref{eq:pot} are plotted in the $X,Y$ plane. A test particle with Jacobi integral $C_J$ cannot ever cross the equi-potential line associated with potential $\phi(r) = C_J$. This defines regions where the particle is ``imprisoned''. Around every point mass $M_i$ there are regions that enclose only $M_i$ and not the other mass, The largest region that encloses only one mass point is defined as the Roche lobe (RL) of that mass. We model a binary system as two point masses orbiting one another at a constant angular velocity with an effective potential \ref{eq:pot}. This is an approximation as it treats the star as a point mass, for a test particle outside the star it is negligible as the majority of the star's mass is located deep where $\phi(r)$ is approximately spherical. A star can expand beyond his RL either by shrinking the separation distance $a$, or by self evolution of the star that extends radius. Once the RL overfills (RLOF) mass from the star is no longer bound to the star and can ``escape" to other regions (<a href="#Kuiper1941">Kuiper 1941</a>), notably to the other RL. When such a process occurs we refer to it as a mass transfer (MT) from a ``donor" star to an ``accretor" star, where the accretor is denoted as $M_2$ and the donor $M_1$.</p>
+
+        <p>The RL of $M_1$ and the RL of $M_2$ are two distinct regions yet they share a common point, this point is a saddle point of the effective potential (\ref{eq:pot}) and is referred as the first Lagrange point ($L_1$) (<a href="#Euler1767">Euler 1767</a>) (<a href="#Lagrange1772">Lagrange 1772</a>). Under MT mass flows between objects near $L_1$.</p>
+
+        <p>In certain scenarios that will be discussed further, mass can escape the RL outwards into the third region, which is the region unbound to any of the stars, when in such a scenario mass flows near another saddle point denoted as the second Lagrange point ($L_2$). It is important to note we are discussing the RL of the donor, as in some other works the notation of $L_2$ is to the outer Lagrange point of the accretor.</p>
+
+        <figure id="fig:Roche_pot">
+            <img src="roche_potential.png" alt="Equi-potential lines in the co-rotating frame" style="width:75%; max-width:600px;">
+            <figcaption><b>Figure 1:</b> Equi-potential lines in the co-rotating frame of $\mu = 10^{-2}$ system. Red contour is the equipotential line associated with the potential in $L_1$, the black contour is associated with the potential in $L_2$.</figcaption>
+        </figure>
+
+        <p>Historically, MT was first proposed by <a href="#Struve1941">Struve (1941)</a>. While observing the binary system $\beta$ Lyrae, he saw a spectral signature of hot free gas in the system that did not line up with the expected spectra of two stars orbiting one another. This finding led him to first propose the idea of MT in binaries. If the accretor does not fill it's RL then the system is referred to as a semi-detaced binary. In such systems mass flows from the donor and forms an accretion disk in the accretor's RL. As the flow is inspiraling around the accretor, it loses angular momentum and emits radiation that can be observed. The emitted radiation has a unique spectral signature depending on the accretion disk properties. The first extra-terrestrial X-ray ever observed (<a href="#Giacconi1962">Giacconi 1962</a>) is a X-ray emitting binary accretion disk. In this work, we analyze the mass-loss rate ($\dot{M}$) of the donor. <a href="#Nariai1967">Nariai (1967)</a> proposed modeling the flow through the $L_1$ Lagrange point as a de Laval nozzle (<a href="#LandauLifshitzFluid">Landau & Lifshitz 1987</a>), This led him to conclude that the velocity at $L_1$ reaches the speed of sound. This assumption was used by the astronomical community to study MT (<a href="#Paczynski1971">Paczyński 1971</a>). <a href="#LubowShu1975">Lubow & Shu (1975)</a> elaborated on this foundation with a more precise hydrodynamic treatment of the $L_1$ region. They computed the influence of the Coriolis force on the ejected stream and used analytical arguments to determine the stream's ejection angle. Later, <a href="#Ritter1988">Ritter (1988)</a> synthesized their work and <a href="#Paczynski1972">Paczyński & Sienkiewicz (1972)</a> into a unified formula for mass loss. Historically, less attention has been paid to the possibility of matter escaping via the $L_2$ Lagrange point. <a href="#Kuiper1941">Kuiper (1941)</a> initially raised this possibility, particularly in binaries with a shared envelope. <a href="#shu1979">Shu et al. (1979)</a> revisited $L_2$ mass transfer for shared envelope systems, demonstrating that for certain mass ratios, the ejected material is unbound and can escape the binary. More recently, <a href="#Linial2017">Linial & Sari (2017)</a> showed that stable, semi-detached (not shared envelope) $L_2$ MT can occur in extreme mass-ratio systems, such as those involving a supermassive black hole (SMBH), where GW radiation drives MT. In this work, we present a quantitative formula for computing the ratio of mass ejected from $L_2$ in the cases discussed in <a href="#Linial2017">Linial & Sari (2017)</a>. This study was carried out in collaboration with <a href="#Ryu2025">Ryu et al. (2025)</a>, where we constructed a scaled 3D hydrodynamical simulation that improved our understanding of the flow in the Lagrange point region. We present the results of our simulations and compare them to our analytical conclusions, a detailed technical explanation of the simulations is given in <a href="#Ryu2025">Ryu et al. (2025)</a>.</p>
+
+        <p>The structure of this theses is as follows:</p>
+        <ul>
+            <li><strong>Chapter 2</strong>: Presents an overview of the established potential framework utilized in this work.</li>
+            <li><strong>Chapter 3</strong>: Describes our hydrodynamical framework developed for analyzing the Lagrange point region.</li>
+            <li><strong>Chapter 4</strong>: Derives an upper bound for the mass loss, demonstrating its equivalence to the assumption of a sonic flow in the Lagrange point region.</li>
+            <li><strong>Chapter 5</strong>: Applies the hydrodynamical results to analyze the mass ejection ratio between $L_1$ and $L_2$.</li>
+        </ul>
+
+        <p>Note on Prior Work: Two weeks before submission, we became aware of an unpublished 1969 M.Sc. thesis by Jedrzejec. Although he refused to publish it, his advisor, Paczynski, included it as an appendix in his 1972 paper <a href="#Paczynski1972">Paczyński & Sienkiewicz (1972)</a>. In this thesis, Jedrzejec derives the known mass-loss formula as the maximal flow, which is nearly identical to our own derivation sections 2 and 3.</p>
+
+        <h2>2. Lagrange Point Region</h2>
+
+        <p>As mentioned, the Lagrange points play an important role in MT, understanding them and the potential geometry around them is crucial to understanding the flow. In the co-rotating frame these two points lie on the $\hat{x}$ axis on opposing sides of the donor and can be approximated as (<a href="#MurrayDermott1999">Murray & Dermott 1999</a>) - </p>
+
+        $$
+        \begin{align}
+            \label{eq:LP_approx}
+            L_1 &= a \left[ 1 - \left( \frac{\mu}{3} \right)^{1/3} + \frac{1}{3}\left( \frac{\mu}{3}\right)^{2/3} + O\left(\mu\right)\right] \hat{x}\\
+            L_2 &= a \left[ 1 + \left( \frac{\mu}{3} \right)^{1/3} + \frac{1}{3}\left( \frac{\mu}{3}\right)^{2/3} + O\left(\mu\right)\right] \hat{x}
+        \end{align}
+        $$
+
+        <p>To further analyze the potential around these points, we adopt a local coordinate system centered at $L_i$ ($i=1,2$). Since the potential gradient vanishes at these points ($\nabla \phi_{L_i} = 0$), the effective potential can be expanded to quadratic order in the local coordinate system as (<a href="#Nariai1967">Nariai 1967</a>):</p>
+        
+        $$
+        \begin{equation}
+            \label{eq:LPR_pot}\phi(x,y,z) \approx \phi_{L_i} - \frac{1}{2} \Omega^2 \left( A_i x^2 + B_i y^2 + C_i z^2 \right)
+        \end{equation}
+        $$
+
+        <figure id="fig:placeholder">
+            <img src="L1_potential.png" alt="Potential geometry at the vicinity of L1" style="width:65%; max-width:600px;">
+            <figcaption><b>Figure 2:</b> A zoom on the potential geometry at the vicinity of $L_1$ in $\mu = 10^{-2}$, as it can be observed the hyperbolic effective potential (\ref{eq:LPR_pot}) is a good estimate. The black lines are where the potential is the same as $L_1$, where $A_1x^2 + B_1y^2 = 0$</figcaption>
+        </figure>
+
+        <p>The dimensionless coefficients $A_i, B_i,$ and $C_i$ characterize the local geometry of the potential around $L_i$. These coefficients are determined solely by the mass ratio $\mu$ and can be expressed as functions of one another (<a href="#LubowShu1975">Lubow & Shu 1975</a>).</p>
+        
+        $$
+        \begin{equation}
+        \label{eq:C}
+            C_i = B_i + 1 = -\frac{A_i + 1}{2} = \frac{1-\mu}{|L_i/a|^3} + \frac{\mu}{|L_i/a - \hat{x}|^3}
+        \end{equation}
+        $$
+        
+        <p>This quadratic approximation remains valid within the neighborhood of the saddle point on a scale comparable to that of the smaller Roche lobe. Hereafter, we define this domain as the Lagrange Point Region (LPR).</p>
+
+        <h2>3. Hydrodynamics of the Lagrange point region</h2>
+
+        <p>In the previous chapter we have established an effective potential in the LPR, in this section we analyze the hydrodynamics of the flow in the LPR under that potential.<br>
+        In our treatment, we make the following assumptions - </p>
+        <ul>
+            <li><strong>Adiabatic process:</strong> Within the LPR, we treat the flow as isentropic, characterized by an adiabatic EOS: 
+            $$
+            \begin{equation}
+                \label{eq:EOS}
+                P = K \rho^\gamma
+            \end{equation}
+            $$
+            </li>
+            <li><strong>Inviscid flow:</strong> As in many similar astrophysical scenarios the Reynolds number in the LPR is high, so viscosity can be neglected.</li>
+            <li><strong>Time-independent:</strong> On timescales comparable to the orbital period, the flow relaxes toward a steady state $\partial \mathbf{v}/\partial t = \partial \rho/\partial t = 0$. We observed This behavior in simulations of the just the LPR (<a href="#Ryu2025">Ryu et al. 2025</a>).</li>
+            <li><strong>Hydrostatic boundary:</strong> The majority of the star is in hydrostatic equilibrium, so we assume that the flow originates from a hydrostatic profile where velocity can be neglected $\left|v\right| \ll c_s$. </li>
+        </ul>
+
+        <p>The equations that describe the flow are the Euler equations for an adiabatic, inviscid, time-independent fluid:</p>
+        
+        $$
+        \begin{align}
+            \label{eq:massConsrv}0 &= \nabla \cdot \left( \rho \vec{v} \right)\\
+            \label{eq:momentum}0 &= \left( \vec{v} \cdot \nabla \right) \vec{v} + \nabla \left( \phi + \frac{c_s^2}{\gamma - 1} \right) + 2 \vec{\Omega} \times \vec{v}
+        \end{align}
+        $$
+
+        <p>Taking the scalar product of Equation \ref{eq:momentum} with $\vec{v}$ along a streamline yields the Bernoulli equation:</p>
+        
+        $$
+        \begin{equation}
+            \label{eq:Bernoulli}\frac{1}{2} v^2 + \phi + \frac{c_s^2}{\gamma - 1} = \phi_0
+        \end{equation}
+        $$
+        
+        <p>Where $\phi_0" is an integration constant associated with the specific streamline. In the following section, we show that it is in fact a global integration constant that all streamlines share.</p>
+
+        <h3>3.1. Global integration constant</h3>
+        <p>Every streamline originated at the LPR boundary where a hydrostatic profile ($v \ll c_s$) is assumed, equation \ref{eq:momentum} becomes:</p>
+        
+        $$
+        \begin{equation}
+            0 = \nabla \left( \phi + \frac{c_s^2}{\gamma - 1} \right)
+        \end{equation}
+        $$
+        
+        <p>and by inserting \ref{eq:Bernoulli} we arrive at $\nabla\phi_0 = 0$, which means that the integration constant is uniform for streamlines originating in the hydrostatic boundary. This motivates defining an overflow parameter: (<a href="#Kitamura1970">Kitamura 1970</a>)</p>
+        
+        $$
+        \begin{equation}
+            \label{eq:D} D = \phi_0 - \phi_{L_1}
+        \end{equation}
+        $$
+        
+        <p>This parameter $D$ serves as a foundational quantity for the analysis in the following chapters.</p>
+
+        <h2>4. Maximal mass flow rate</h2>
+        <p>As mentioned, in many previous works (<a href="#Paczynski1971">Paczyński 1971</a>) & (<a href="#LubowShu1975">Lubow & Shu 1975</a>) it is assumed that the flow becomes transonic in the vicinity of the Lagrange point. <a href="#Ritter1988">Ritter (1988)</a> used this assumption to give an estimate of the total mass loss rate ($\dot{M_2}$). In this chapter we rigorously show that assuming that the flow becomes transonic at the vicinity of the Lagrange point is actually an upper bound of $\dot{M_2}$.<br> 
+        Deep inside the star where the flow originates it is subsonic, and after escaping the potential of $M_2$ it is under projectile considerations and thus transonic. Somewhere in between those two regimes every streamline has a sonic point, together they form a sonic surface, which <a href="#LubowShu1975">Lubow & Shu (1975)</a> showed has to be near the Lagrange point.</p>
+
+        <h3>4.1. streamline</h3>
+        <p>We first examine the 1D case of a given streamline with a Bernoulli constant $\phi_0$, Using Bernoulli's equation (\ref{eq:Bernoulli}) we can describe density as a function of velocity and potential:</p>
+        
+        $$
+        \begin{equation}
+            \rho = \left[\frac{\gamma-1}{\gamma K}\left(\phi_0 - \phi - \frac{v^2}{2}\right)\right]^{\frac{1}{\gamma-1}}
+        \end{equation}
+        $$
+
+        <p>We can maximize the mass-flux $\rho v$ by differentiating $\frac{\partial \rho v}{\partial v} = 0`, finding that along a stream-line the maximum mass-flux is:</p>
+        
+        $$
+        \begin{equation}
+            \label{eq:maxPointmassflux}\rho v \leq \left(K\gamma\right)^{-\frac{1}{\gamma-1}} \left(\eta - 1\right)^{1-\eta} \left(\phi_{0}-\phi\right)^{\eta - 1}
+        \end{equation} 
+        $$
+        
+        <p>where $\eta = \frac{3\gamma - 1}{2(\gamma - 1)}. The maximum of the LHS is reached by $\left|v\right| = c_s$, which means that assuming the outflow velocity is sonic is in fact assuming the maximal mass flux along every streamline.</p>
+
+        <h3>4.2. 3D</h3>
+        <p>Using the bound on mass flux in a stream-line we can now derive a bound on the total mass flux of the 3D case.<br>
+        This is done by integrating over the surface $x = 0$:</p>
+        
+        $$
+        \begin{align}
+            \dot{M} &= \iint\limits_{\phi < \phi_0} \rho \vec{v} \cdot \hat{n} dS \leq \iint\limits_{\phi < \phi_0} \rho |\vec{v}| dS
+        \end{align}
+        $$
+
+        <p>For every point on the surface $x = 0$ the mass-flux $\rho |\vec{v}|$ is bounded by $\max (\rho |v|)$ from equation \ref{eq:maxPointmassflux}.<br>
+        The bound of the total mass-loss rate:</p>
+        
+        $$
+        \begin{align}
+            \dot{M} &\leq \iint\limits_{\phi<\phi_0} \rho |\vec{v}| dS\\
+            &\leq \left(\gamma K\right)^{-\frac{1}{\gamma-1}} \left(\eta - 1\right)^{1-\eta} \iint\limits_{\phi<\phi_0} \left(\phi_{0}-\phi\right)^{\eta - 1}dS\\
+            &= \left(\gamma K\right)^{-\frac{1}{\gamma-1}} \frac{2\pi}{\Omega^2\sqrt{BC}} \frac{\left(\eta - 1\right)^{1 - \eta}}{\eta} D^\eta \label{eq:ritter}
+        </p>
+        
+        <p>\ref{eq:ritter} is exactly the same analytical result widely used from <a href="#Ritter1988">Ritter (1988)</a>. While running our simulations, this upper bound proved useful as a sanity check. As mentioned in <a href="#Ryu2025">Ryu et al. (2025)</a>, $\dot{M}_2$ in numerical simulations without Coriolis force is very close to this upper bound (about 95%).</p>
+
+        <h3>4.3. Coriolis force</h3>
+        <p>In simulations with Coriolis force, streamlines tend to bend and flow only from one side of the outer layer of the star, along the $0 = Ax^2 + By^2$ line.</p>
+
+        <figure id="fig:ryu2025_cor2">
+            <img src="paper_trajectory_adiabatic_q1.00e+00_L1.jpg" alt="Trajectory" style="width:35%; max-width:300px;">
+            <img src="paper_trajectory_adiabatic_q1.00e+00_L1_no_cor.jpg" alt="Trajectory no coriolis" style="width:35%; max-width:300px;">
+            <figcaption><b>Figure 3:</b> From <a href="#Ryu2025">Ryu et al. (2025)</a>, side by side comprehension of the flow with Coriolis and without. It is clearly visible that under the effect of Coriolis force the streamlines approach the LPR parallel to the star's edge</figcaption>
+        </figure>
+
+        <p>we can approximate that all streamlines escape the surface $x = 0$ with the same velocity direction as they traveled with. adding this assumption to the total to the bound we derived is just multiplying by the factor of $\frac{1}{\sqrt{1 + \left|\frac{A}{B} \right|}}$, which by equation \ref{eq:C} gives us the final formula:</p>
+        
+        $$
+        \begin{equation}
+            \dot{M}_{\rm L} \approx \left(\gamma K\right)^{-\frac{1}{\gamma-1}} \frac{\left(\eta - 1\right)^{1 - \eta} 2\pi}{\eta \Omega^2 C \sqrt{3}} D^\eta
+            \label{eq:Mdot3D}
+        \end{equation}
+        $$
+
+        <p>As can be seen in figure \ref{fig:Mdot_comper_teaho} compering formula \ref{eq:Mdot3D} with our simulations <a href="#Ryu2025">Ryu et al. (2025)</a>, we find that it agrees well with the simulations, especially when $\mu \rightarrow 0$. From now on, equation \ref{eq:Mdot3D} is assumed as a good approximation and is used to analyze the mass flow.</p>
+
+        <figure id="fig:Mdot_comper_teaho">
+            <img src="compare_teaho_ryu2025.png" alt="Comparison" style="width:75%; max-width:600px;">
+            <figcaption><b>Figure 4:</b> comparison between the <a href="#Ritter1988">Ritter (1988)</a> $\dot{M}$ formula and the calculations taking into account Coriolis force. Results from <a href="#Ryu2025">Ryu et al. (2025)</a> simulations and this work's equation \ref{eq:Mdot3D} are presented.</figcaption>
+        </figure>
+
+        <h2>5. $L_1$ vs $L_2$</h2>
+        <p>Different mechanisms can drive the donor to extend beyond it's RL, either an internal mechanism that increases the donor's radius by stellar evolution, or by external process that decreases the separation distance $a$.<br>
+        In this chapter, we focus on mechanisms which decrease $a$, such as dynamical friction with surrounding gas, tides, and gravitational radiation. Each of these mechanisms draws energy from the orbital energy, and the donor is pulled towards the accretor to compensate. As $a$ decreases, the RL volume shrinks, the outer layers reach $L_1$ and MT starts.<br> 
+        If the accretor is compact then mass expelled from $L_1$ forms an accretion disk, and do to friction of the falling gas returns it's angular momentum to the donor. The donor has the same angular momentum but is less massive, so to compensate it retreats outwards to a larger $a$. Those two processes balance each other to a stable situation where the MT counteracts the external mechanism, it is referred to as a stable-MT. In a stable-MT the timescale of change in the separation distance is proportional to the MT timescale (<a href="#Linial2017">Linial & Sari 2017</a>):</p>
+        
+        $$
+        \begin{equation}
+            \frac{\dot{a}_{ext}}{a} \approx \frac{\dot{M_2}}{M_2}
+        \end{equation}
+        $$
+
+        <h3>5.1. Critical MT timescale</h3>
+        <p>If the external mechanism is strong enough, in order to remain in a stable-MT the donor exceeds the RL so much that the outer layer reaches $L_2$. Using our previous work in chapter 4 we can find the critical MT timescale $\tau_c = \dot{M}_{L_1}/M$ required for the donor to reach $L_2$.<br>
+        The polytropic constant $K$ from the adiabatic EOS \ref{eq:EOS} plays a major role in determining $\dot{M}$ however, we find it a quiet un-intuitive property as the units are $\gamma$-dependent. Therefore, we introduce a dimensionless parameter $\tilde{k}$ defined as the ratio between $K$ of the flow EOS, and $K_P$ the $K$ as if the whole star was adiabatic:</p>
+        
+        $$
+        \begin{align}
+            K_P &= N_\gamma G M_2^{2-\gamma} R_2^{3\gamma - 4}\\
+            \tilde{k} &= \frac{K}{K_P}
+        \end{align}
+        $$
+        
+        <p>Where $N_\gamma$ is the numerical factor from <a href="#LaneEdman1870">Lane (1870)</a> solution to a polytrope. $\tilde{k} = 1$ for an adiabatic star, and for a non-adiabatic stable star $\tilde{k}>1$.<br>
+        In a critical MT the outflow parameter $D$ is exactly the potential difference $D=\Delta\phi$:</p>
+        
+        $$
+        \begin{align}
+            \Delta \phi &= \phi_{L_1} - \phi_{L_2}\\
+            \tilde{g}(\mu) &= \frac{a\Delta \phi}{G(M_1 + M_2)} 
+        \end{align}
+        $$
+        
+        <p>Here $\tilde{g}$ is the dimensionless version of $\Delta \phi$, which depends only on $\mu$.<br>
+        Using these dimensionless parameters in equation \ref{eq:Mdot3D} we can express $\tau_c$ as a function of $\Omega$, $\gamma$, $\mu$, $\tilde{k}$: ( $\frac{a}{R_2}$, $\tilde{g}$, $C_1$ are functions of $\mu$)</p>
+
+        $$
+        \begin{equation}
+            \label{eq:tau_crit}
+            \tau_c = \Omega\frac{\left(N_{\gamma}\gamma \tilde{k}\mu\right)^{-\frac{1}{\gamma-1}} 2\pi}{\eta\left(\eta-1\right)^{\eta-1} \sqrt{3}}\left(\frac{a}{R_{2}}\right)^{3-\frac{1}{\gamma-1}}\frac{\tilde{g}^{\eta}}{C_1}
+        \end{equation}
+        $$
+
+        <p>If the mass ratio $\mu \ll 1$ is small enough, we can expand the parameters in $\mu$:</p>
+
+        $$
+        \begin{align}
+            \tilde{g}(\mu) &\approx \frac{2}{3} \mu\\
+            C_{1} \approx C_{2} &\approx 4\\
+            \frac{R_{RL}}{a}&\approx \left(\frac{\mu}{3}\right)^{1/3} \label{eq:roche_r}
+        \end{align}
+        $$
+        
+        <p>Assuming the donor's is about the size of the RL $R_2 \approx R_{RL}$:</p>
+        
+        $$
+        \begin{align}
+            \tau_c &\approx \Omega \mu^{-\frac{\eta}{3}}k^{-\frac{1}{\gamma - 1}} A(\gamma) \label{eq:tau_small_mu}\\
+            A(\gamma) &= \frac{\pi\left(\gamma N_{n}\right)^{-\frac{1}{\gamma-1}}2^{\eta-1}3^{1-\frac{4}{3}\eta}}{\eta\left(\eta-1\right)^{\eta-1}}
+        \end{align}
+        $$
+
+        <h3>5.2. $L_2$ leakage</h3>
+        <p>In some scenarios the external mechanism shrinking $a$ is strong enough to overfill the RL in such a way that a non negligible of the MT happens via $L_2$. We use the following notation to describe the ratio:</p>
+        
+        $$
+        \begin{equation}
+            \dot{M}_{L_2} = \alpha \dot{M}_{2,total}
+        \end{equation}
+        $$
+
+        <p>The overflow parameter for $L_1$ is $D$, for $L_2$ it is $D - \Delta\phi$. By writing equation \ref{eq:Mdot3D} for each of the Lagrange points and dividing them, we can relate a specific outflow parameter $D$ to a specific $\alpha$: </p>
+        
+        $$
+        \begin{equation}
+            \label{eq:ratio}
+            \frac{\alpha}{1-\alpha} = \frac{\dot{M}_{L_2}}{\dot{M}_{L_1}} = \left( 1 - \frac{\Delta \phi}{D} \right)^{\eta} \frac{C_1}{C_2}
+        </equation}
+        $$
+
+        <p>This enables us to relate $\alpha$ to the MT timescale without knowing the actual overflow $D$:</p>
+
+        $$
+        \begin{equation}
+            \frac{\dot{M}_{2}}{M_{2}}= \tau_c \left(\left(1-\alpha\right)^{\frac{1}{\eta}}-\left(\alpha \frac{C_2}{C_1}\right)^{\frac{1}{\eta}}\right)^{-\eta}
+            \label{eq:Mdot_timescale}
+        \end{equation}
+        $$
+
+        <p>A higher $\dot{M}_2/M_2$ will result in a larger $\alpha$. In figure \ref{fig:alpha_timescale} we figuratively show the relationship between $\alpha" and  $\dot{M}/M$ normalized to $\lim_{\mu \rightarrow0} (\tau_c)$.</p>
+
+        <figure id="fig:alpha_timescale">
+            <img src="alpha_timescale.png" alt="Alpha timescale" style="width:75%; max-width:600px;">
+            <figcaption><b>Figure 5:</b> A visual presentation of equation \ref{eq:Mdot_timescale}, one can use the equation to calculate $\alpha$ for different $\dot{M}_2/M_2$ from external mechanisms. $\dot{M}_2/M_2$ is normalized by the critical timescale $\tau_c$ for $L_2$ MT at extreme mass ratio (equation \ref{eq:tau_small_mu}).</figcaption>
+        </figure>
+
+        <p>Equation \ref{eq:Mdot_timescale} can help us produce an upper bound on $\alpha$, by requiring that it does not cross to an infinite $\dot{M}/M$:</p>
+
+        $$
+        \begin{equation}
+            \alpha < \frac{C_1}{C_1 + C_2}
+        \end{equation}
+        $$
+        
+        <p>Taking $\mu \rightarrow 0$ and using \ref{eq:LP_approx} and \ref{eq:C}:</p>
+        
+        $$
+        \begin{equation}
+            \alpha < \frac{1}{2} + \frac{3}{4} \left(\frac{\mu}{3}\right)^{1/3} + O(\mu^{\frac{2}{3}})
+        \end{equation}
+        $$
+
+        <h3>5.3. GW driven mass transfer in extreme mass ratio</h3>
+        <p>Following <a href="#Linial2017">Linial & Sari (2017)</a> we use the conservation of angular momentum to relate the MT timescale to an external mechanism. Matter that escapes via $L_1$ forms an accretion disk and slowly falls inward by loosing angular momentum, due to conservation of angular momentum it deposits all of it's angular momentum back to the donor.<br>
+        On the other hand, matter escaping from $L_2$ leaves and does not necessarily return it's angular momentum back to the orbit. We assume that matter escapes $L_2$ with the average angular momentum of the donor, and does not return it back to the orbit:</p>
+        
+        $$
+        \begin{equation}
+            \dot{J}_{L_2} \approx \alpha \dot{M}_2\sqrt{G(M_1+M_2)a} 
+        \end{equation}
+        $$
+
+        <p>Let $\dot{J}_{ext}$ be some external mechanism of angular momentum loss that drives the MT, the total change in the orbital angular momentum $J_{orb}$ is:</p>
+        
+        $$
+        \begin{equation}
+            \dot{J}_{orb} = \dot{J}_{L_2} + \dot{J}_{ext}
+        \end{equation}
+        $$
+        
+        <p>As shown in detail in <a href="#Linial2017">Linial & Sari (2017)</a>, assuming that the donor is roughly the size of the RL, when $\mu \ll 1$  using the expansion \ref{eq:roche_r}:</p>
+        
+        $$
+        \begin{equation}
+            \frac{\dot{J}_{ext}}{J} = \frac{\dot{M}_2}{M_2} \left( \frac{5}{6} + \frac{\epsilon}{2} - \alpha \right)
+            \label{eq:linial}
+        \end{equation}
+        $$
+        
+        <p>Where $\epsilon" is the mass-radius index of the donor $\epsilon = \frac{d \log R_2}{d \log M_2} $.<br></p>
+
+        <p>Focusing on cases where the majority of angular momentum loss is driven by gravitational waves (GW) radiation, the angular momentum loss rate do to GW is given by (<a href="#peters1963">Peters & Mathews 1963</a>):  </p>
+        
+        $$
+        \begin{equation}
+            \frac{\dot{J}_{GW}}{J} = \frac{32}{5}\left(\frac{\Omega a}{c}\right)^5\frac{\Omega}{\mu\left(1-\mu\right)}
+        \end{equation}
+        $$
+        
+        <p>Where $c$ is the speed of light.<br></p>
+
+        <p>Finally, combining equations \ref{eq:GWloss}, \ref{eq:linial} and \ref{eq:Mdot_timescale} with $\mu \ll 1$, we obtain two equivalent useful relations for steady state GW driven mass transfer with $L_2$ mass loss -</p>
+
+        $$
+        \begin{align}
+            \frac{\frac{5}{6}+\frac{\epsilon}{2}-\alpha}{\left(\left(1-\alpha\right)^{\frac{1}{\eta}}-\alpha^{\frac{1}{\eta}}\right)^{\eta}}\frac{5}{32}\frac{A\left(\gamma\right)}{\tilde{k}^{\frac{1}{\gamma-1}}} &= \left(\frac{R_{S}}{a}\right)^{5/2}\mu^{\frac{\eta}{3}-1}2^{-5/2} \label{eq:schw_alpha}\\
+            &= \left(\frac{v_{esc}}{c}\right)^{5}\mu^{\frac{\eta}{3}-\frac{8}{3}}3^{-5/6} \label{eq:v_esc_alpha}
+        \end{align}
+        $$
+
+        <p>Where $R_s=\sqrt{2GM_1/c^2}$ is the Schwarzschild radius, and $v_{esc}=\sqrt{2GM_2/R_2}$ is the escape velocity from the donor surface.<br></p>
+
+        <p>If the RHS is smaller than the LHS when $\alpha = 0$, then no $L_2$ MT is happening, and these equations are not valid.<br></p>
+
+        <p>Equation \ref{eq:v_esc_alpha} is useful if one has a complete understanding of the donor as a star, but does not necessarily know where it is located with respect to the accretor. Knowing $\tilde{k}$, $\gamma$, $\mu$, and $v_{esc}$ we can calculate with high precision the $\alpha$ of stable-MT. It should be noted that if $\frac{v_{esc}}{c} \approx \mu^{\frac{1}{3}}$ then the separation distance $a$ is comparable to the Schwarzschild radius of the accretor and our Newtonian treatment is invalid.<br></p>
+
+        <p>Equation \ref{eq:schw_alpha} can prove useful if one tries to understand $\alpha$ at a specific separation distance $a$.<br>
+        An interesting case is when $\gamma = 5/3$, the $\mu$ dependence of the equation drops, and we are left with the following:</p>
+        
+        $$
+        \begin{equation}
+            \left(\frac{R_{S}}{a}\right)^{2.5}\tilde{k}^{1.5}=0.109\frac{\frac{5}{6}+\frac{\epsilon}{2}-\alpha}{\left(\left(1-\alpha\right)^{\frac{1}{3}}-\alpha^{\frac{1}{3}}\right)^{3}}
+        \end{equation}
+        $$
+        
+        <p>This is an interesting result, as it predicts that for an adiabatic star $\tilde{k}=1$ with $\gamma=5/3$, the $\tau_{c}$ of GW induced MT happens exactly at $a \approx 3.2 R_s$. This means that for polytropes of $\gamma = 5/3$ which are fairly common, GW induced MT from $L_2$ occurs only in the relativistic regime where we cannot grant our Newtonian treatment to be valid.<br></p>
+
+        <p>In-order to have significant $L_2$ MT from GW, either the adiabatic index has to be smaller $\gamma < 5/3$, or not an adiabatic star and the entropy profile will be non-uniform $k>1$.</p>
+
+        <h2>6. Discussion</h2>
+
+        <h3>6.1. Stellar evolution models</h3>
+        <p>We derived a formula for computing the ratio of material ejected from the Lagrange point only as a function of the mass ratio $\mu$ and the star's properties $\gamma , k , v_{esc}$. In order to give real world predictions we need to calculate these quantities for stars undergoing MT. Recently much work is being done with evolutionary models such as MESA to better understand star evolution under MT.</p>
+
+        <h3>6.2. Eccentric orbits</h3>
+        <p>Our whole analysis was based on the assumption of a circular orbit, which is often an oversimplification of the true physical scenario. Eccentric mass transfer (EMT) is a much more complex phenomenon, primarily because it is challenging to derive an effective potential in a time-dependent system. <a href="#Sepinsky2007">Sepinsky et al. (2007)</a> proposed an analytic framework to address the effective potential in eccentric systems. His work showed that, for certain eccentricities, the potential difference between $L_1$ and $L_2$ (which we denote as $\Delta\phi$) could become negative at the perihelion. This observation suggests, counterintuitively, that MT originating from $L_2$ might potentially be more significant than that from $L_1$. More recently, <a href="#Parkosidis2025">Parkosidis et al. (2025)</a> provided a comprehensive analysis of EMT, using Sepinsky’s analytical framework and introducing the possibility of mass transfer originating from $L_3$ (which they label as $L_2$). Beyond the complication of determining the effective potential, the periodic nature of EMT further compounds the problem. As we observed in our simulations (<a href="#Ryu2025">Ryu et al. 2025</a>), the flow relaxes on the timescale of the orbital period, which means that a time-independent solution can no longer be assumed.</p>
+
+        <h3>6.3. Ejecta dynamics</h3>
+        <p>After matter is expelled via $L_2$ what happens to it? <a href="#shu1979">Shu et al. (1979)</a> showed that in common envelope scenarios, $L_2$ ejecta can escape the system. After establishing that $L_2$ MT is possible and can be comparable to $L_1$ MT in semi-detached systems, it remains to understand what happens to the ejected material.</p>
+
+        <h2>7. Summary</h2>
+
+        <p>This thesis studies mass transfer (MT) in semi-detached binaries in the circular restricted three-body problem framework. Starting by setting the stage for our analysis, first by moving to the co-rotating frame where the Jacobi constant can be used as an effective potential (\ref{eq:pot}). To better understand what is happening near the first and second Lagrange points, we expanded the effective potential to a quadratic order around them (\ref{eq:LPR_pot}). This approximation is valid on the scale of the donor's radius and was used in this work analytical analysis, and in our simulations in <a href="#Ryu2025">Ryu et al. (2025)</a>. We consider the flow at Lagrange points as an inviscid adiabatic flow with EOS: $P=K\rho^\gamma$. Following observations from our simulations, we assume that the flow relaxes to a steady state at the timescale of the orbital period, which led us to the stationary Euler equations in the co-rotating frame. By projecting the momentum equation along a streamline, we obtained a Bernoulli integral for each. Taking the assumption that each streamline originated deep in the star where a hydrostatic profile is assumed ($|v| \ll c_s$), we concluded that all streamlines share the same Bernoulli constant $\phi_0$. This led us to define an overfilling parameter $D=\phi_0 - \phi_{L_1}$ that plays a critical role in the MT rate. We demonstrated that, for a fixed Bernoulli constant, the mass flux along any streamline is bounded above, with the maximum attained at a sonic point ($|v|=c_s$). Integrating this local bound over the $x=0$ cross-section yields an upper bound on the total mass-loss rate that reproduces the widely used transonic estimate associated with <a href="#Ritter1988">Ritter (1988)</a>. We then incorporated the leading effect of the Coriolis force as a geometric reduction factor, arriving at a practical analytic expression for $\dot{M}$ that is consistent with the behavior observed in our scaled 3D simulations. We applied the maximal-flow result to determine when the donor overfill is large enough for the $L_2$ channel to open, identifying the critical condition $D=\phi_{L_1}-\phi_{L_2}$ and expressing the associated critical MT timescale $\tau_c$ in terms of $\Omega$, $\gamma$, $\mu$, and a dimensionless entropy parameter $\tilde{k}$. Writing the mass-loss formula separately for $L_1$ and $L_2$ and dividing them yields a direct relation between the $L_2$ mass fraction $\alpha$ and the driving MT timescale, allowing one to infer $\alpha$ without explicit knowledge of the overflow $D$. Finally, specializing to gravitational-wave-driven MT in the extreme mass-ratio limit provides compact relations that connect $\alpha$ to the donor structure and to the binary separation, and clarifies when significant $L_2$ leakage is expected within the domain of validity of the Newtonian treatment.</p>
+
+        <h2>References</h2>
+        <div class="references">
+            <p id="Euler1767">Euler, L. (1767). <i>De motu rectilineo trium corporum se mutuo attrahentium</i>. Novi Commentarii academiae scientiarum Petropolitanae, 11, 144-151.</p>
+            <p id="Giacconi1962">Giacconi, R., Gursky, H., Paolini, F. R., & Rossi, B. B. (1962). <i>Evidence for x Rays From Sources Outside the Solar System</i>. Physical Review Letters, 9(11), 439-443.</p>
+            <p id="Jacobi1836">Jacobi, C. G. J. (1836). <i>Sur le mouvement d’un point et sur un cas particulier du problème des trois corps</i>. C. R. Acad. Sci. Paris, 3, 59-61.</p>
+            <p id="Kitamura1970">Kitamura, M. (1970). <i>The geometry of the Roche coordinates</i>. Astrophysics and Space Science, 7(2), 272-358.</p>
+            <p id="Kuiper1941">Kuiper, G. P. (1941). <i>On the Interpretation of $\beta$ Lyrae and Other Close Binaries</i>. The Astrophysical Journal, 93, 133.</p>
+            <p id="Lagrange1772">Lagrange, J.-L. (1772). <i>Essai sur le problème des trois corps</i>. Oeuvres de Lagrange, 6, 229-331.</p>
+            <p id="LandauLifshitzFluid">Landau, L. D., & Lifshitz, E. M. (1987). <i>Fluid Mechanics</i>. Course of Theoretical Physics, vol 6 (2nd ed.). Butterworth-Heinemann, 361-363.</p>
+            <p id="LaneEdman1870">Lane, H. J. (1870). <i>On the theoretical temperature of the Sun...</i>. American Journal of Science, 50(148), 57-74.</p>
+            <p id="Linial2017">Linial, I., & Sari, R. (2017). <i>Mass-loss through the L2 Lagrange point - application to main-sequence EMRI</i>. Monthly Notices of the Royal Astronomical Society, 469(2), 2441-2454.</p>
+            <p id="LubowShu1975">Lubow, S. H., & Shu, F. H. (1975). <i>Gas dynamics of semidetached binaries</i>. The Astrophysical Journal, 198, 383-405.</p>
+            <p id="MurrayDermott1999">Murray, C. D., & Dermott, S. F. (1999). <i>Solar System Dynamics</i>. Cambridge University Press.</p>
+            <p id="Nariai1967">Nariai, K. (1967). <i>Mechanism of Mass Flow from Upsilon Sagittarii</i>. Publications of the Astronomical Society of Japan, 19, 564-574.</p>
+            <p id="Paczynski1971">Paczyński, B. (1971). <i>Evolutionary Processes in Close Binary Systems</i>. Annual Review of Astronomy and Astrophysics, 9, 183.</p>
+            <p id="Paczynski1972">Paczyński, B., & Sienkiewicz, R. (1972). <i>Evolution of Close Binaries VIII. Mass Exchange on the Dynamical Time Scale</i>. Acta Astronomica, 22, 73-91.</p>
+            <p id="Parkosidis2025">Parkosidis, A., Toonen, S., Laplace, E., & Dosopoulou, F. (2025). <i>Rethinking mass transfer: a unified semi-analytical framework for circular and eccentric binaries.II...</i>. arXiv:2511.07190.</p>
+            <p id="peters1963">Peters, P. C., & Mathews, J. (1963). <i>Gravitational Radiation from Point Masses in a Keplerian Orbit</i>. Physical Review, 131(1), 435-440.</p>
+            <p id="Ritter1988">Ritter, H. (1988). <i>Turning on and off mass transfer in cataclysmic binaries</i>. Astronomy and Astrophysics, 202, 93-100.</p>
+            <p id="Roche1873">Roche, E. (1873). Mem. Acad. Sci. Montpellier, 8(1), 235.</p>
+            <p id="Ryu2025">Ryu, T., Sari, R., de Mink, S. E., David, O., Valli, R., Ma, J.-Z., Justham, S., Pakmor, R., & Ritter, H. (2025). <i>Binary mass transfer in 3D: Mass transfer rate and morphology</i>. Astronomy & Astrophysics, 702, A61.</p>
+            <p id="Sepinsky2007">Sepinsky, J. F., Willems, B., & Kalogera, V. (2007). <i>Equipotential Surfaces and Lagrangian Points in Nonsynchronous, Eccentric Binary and Planetary Systems</i>. The Astrophysical Journal, 660(2), 1624-1635.</p>
+            <p id="shu1979">Shu, F. H., Anderson, L., & Lubow, S. H. (1979). <i>On the structure of contact binaries. III - Mass and energy flow</i>. The Astrophysical Journal, 229, 223.</p>
+            <p id="Struve1941">Struve, O. (1941). <i>The Spectrum of $\beta$ Lyrae</i>. The Astrophysical Journal, 93, 104.</p>
+        </div>
+      </div>
     </div>
 
   </div>

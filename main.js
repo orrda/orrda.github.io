@@ -16,11 +16,11 @@ async function loadProjects() {
   const projectGrid = document.getElementById('projects-grid');
   if (!projectGrid) return;
   const projectFiles = [
-    'active-learning.html',
     'analytic-and-function.html',
     'circular-binaries.html',
     'self-similar-pdes.html',
     'stochastic-butcher.html',
+    'active-learning.html',
     'twinkling-lights.html'
   ];
 

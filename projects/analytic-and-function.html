@@ -22,7 +22,7 @@
 
 <header>
   <nav class="container">
-    <a href="../index.html" class="nav-brand">orrda<span>.</span></a>
+    <a href="../index.html" class="nav-brand">orr david<span>.</span></a>
     <ul class="nav-links">
       <li><a href="../index.html#projects">Projects</a></li>
       <li><a href="../index.html#about">About</a></li>
@@ -53,6 +53,10 @@
     </div>
 
     <div class="project-body">
+      <p class="abstract">
+        By mapping positive values to True and negative values to False, we explore the mathematical construction of an "AND" function. While a smooth "AND" function is achievable, we demonstrate that generating an analytic one is fundamentally impossible, and delve deeply into the implications of this result.
+      </p>
+
       <h2>Introduction</h2>
       <p>
         While working on a different problem (<a href="../projects/self-similar-pdes.html">Self-similar PDEs</a>), I wanted to terminate a ODE solver if it crossed some boundary 1 or some boundary 2.
@@ -93,14 +97,12 @@
       <p>
         Constructing an analytic "AND" function is impossible, We will now show a formal proof, and later we will discuss what it means.
       </p>
-      <p>
-        <strong>Lemma 1</strong> if $f(x)$ is analytic, and $\forall x \in (a,b) f(x) = 0$, then $f(x) = 0$ for all $x \in \mathbb{R}$.
-      </p>
       <ol>
+        <li>  if $f(x)$ is analytic, and $\forall x \in (a,b) f(x) = 0$, then $f(x) = 0$ for all $x \in \mathbb{R}$.</li>
         <li>  Let us now look at line $y=0$ and define $g(x) = f(x,0)$, when $x>0$, for every $\epsilon>0$ $f(x,\epsilon) > 0$ and $f(x,-\epsilon) < 0$, by continuity of $f$ we have $f(x,0) = g(x) = 0$ for every $x>0$. </li>
         <li>  When $x<0$ , then by the AND condition we have $f(x,0) = g(x) < 0$. </li>
         <li>  Since $f(x,y)$ is analytic, then so is $g(x)$</li>
-        <li>  By Lemma 1 and 2, we have $g(x) = 0$ for all $x \in \mathbb{R}$, but this is a contradiction to 2</li>
+        <li>  By 1 and 2, we have $g(x) = 0$ for all $x \in \mathbb{R}$, but this is a contradiction to 3</li>
       </ol>
     </div>
 
