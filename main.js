@@ -15,42 +15,50 @@ function updateCount() {
 async function loadProjects() {
   const projectGrid = document.getElementById('projects-grid');
   if (!projectGrid) return;
-  const projectFiles = [
-    'analytic-and-function.html',
-    'circular-binaries.html',
-    'self-similar-pdes.html',
-    'stochastic-butcher.html',
-    'active-learning.html',
-    'twinkling-lights.html'
+  const projectFolders = [
+    'analytic-and-function',
+    'circular-binaries',
+    'self-similar-pdes',
+    'stochastic-butcher',
+    'active-learning',
+    'twinkling-lights'
   ];
 
   let projects = [];
 
   // Fetch each project
-  for (const file of projectFiles) {
+  for (const folder of projectFolders) {
     try {
-      const response = await fetch(`projects/${file}`);
-      if (!response.ok) continue;
+      // First try to load the postcard.html file which contains the metadata/summary
+      const response = await fetch(`projects/${folder}/postcard.html`);
+      let html = '';
+      if (!response.ok) {
+        // If there's no postcard, just fall back to index.html for metadata extraction
+        const indexResponse = await fetch(`projects/${folder}/index.html`);
+        if (!indexResponse.ok) continue;
+        html = await indexResponse.text();
+      } else {
+        html = await response.text();
+      }
       
       const lastModifiedHeader = response.headers.get('Last-Modified');
       const lastModified = lastModifiedHeader ? new Date(lastModifiedHeader) : new Date(0);
       
-      const html = await response.text();
       const parser = new DOMParser();
       const doc = parser.parseFromString(html, 'text/html');
 
       const titleEl = doc.querySelector('.project-title');
-      let title = titleEl ? titleEl.innerHTML : file.replace('.html', '').replace('-', ' ');
+      let title = titleEl ? titleEl.innerHTML : folder.replace('-', ' ');
 
       // Try to get abstract: first <p> in .project-body
       const firstP = doc.querySelector('.project-body p');
       let abstract = '';
       if (firstP) {
-        // Truncate abstract if it's too long
-        abstract = firstP.textContent.trim();
-        if (abstract.length > 200) {
-          abstract = abstract.substring(0, 197) + '...';
-        }
+        abstract = firstP.innerHTML;
+        // Optionally truncate if you still want to
+        // if (abstract.length > 200) { abstract = abstract.substring(0, 197) + '...'; }
+      } else {
+        abstract = html; // if postcard is just a raw summary
       }
 
       // Get category from tag
@@ -68,7 +76,7 @@ async function loadProjects() {
       }
 
       projects.push({
-        file,
+        folder,
         title,
         abstract,
         category,
@@ -76,7 +84,7 @@ async function loadProjects() {
         lastModified
       });
     } catch (err) {
-      console.error(`Failed to load ${file}:`, err);
+      console.error(`Failed to load ${folder}:`, err);
     }
   }
 
@@ -96,7 +104,7 @@ async function loadProjects() {
     const article = document.createElement('article');
     article.className = 'project-card';
     article.dataset.category = proj.category;
-    article.onclick = () => window.location.href = `projects/${proj.file}`;
+    article.onclick = () => window.location.href = `projects/${proj.folder}/index.html`;
 
     article.innerHTML = `
       <div class="card-meta">
@@ -106,7 +114,7 @@ async function loadProjects() {
         </span>
       </div>
       <h3 class="card-title">
-        <a href="projects/${proj.file}">${proj.title}</a>
+        <a href="projects/${proj.folder}/index.html">${proj.title}</a>
       </h3>
       ${proj.abstract ? `<p class="card-description">${proj.abstract}</p>` : ''}
     `;
