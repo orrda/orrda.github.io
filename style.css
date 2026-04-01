@@ -15,11 +15,17 @@
   --clr-muted: #8b949e;
   --clr-accent-math: #58a6ff;
   --clr-accent-physics: #3fb950;
+  --clr-accent-astro: #d2a8ff;
+  --clr-accent-cs: #ff7b72;
   --clr-accent-hover: #79c0ff;
   --clr-tag-math-bg: rgba(88, 166, 255, 0.12);
   --clr-tag-math-text: #58a6ff;
   --clr-tag-physics-bg: rgba(63, 185, 80, 0.12);
   --clr-tag-physics-text: #3fb950;
+  --clr-tag-astro-bg: rgba(210, 168, 255, 0.12);
+  --clr-tag-astro-text: #d2a8ff;
+  --clr-tag-cs-bg: rgba(255, 123, 114, 0.12);
+  --clr-tag-cs-text: #ff7b72;
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
   --radius: 8px;
@@ -273,6 +279,16 @@ h1.hero-title {
   border-color: var(--clr-accent-physics);
 }
 
+.filter-btn[data-filter="astro"].active {
+  background: var(--clr-accent-astro);
+  border-color: var(--clr-accent-astro);
+}
+
+.filter-btn[data-filter="cs"].active {
+  background: var(--clr-accent-cs);
+  border-color: var(--clr-accent-cs);
+}
+
 /* ============================
    Projects grid
    ============================ */
@@ -304,6 +320,14 @@ h1.hero-title {
   border-color: var(--clr-accent-physics);
 }
 
+.project-card[data-category="astro"]:hover {
+  border-color: var(--clr-accent-astro);
+}
+
+.project-card[data-category="cs"]:hover {
+  border-color: var(--clr-accent-cs);
+}
+
 .project-card.hidden {
   display: none;
 }
@@ -331,6 +355,16 @@ h1.hero-title {
 .card-tag.physics {
   background: var(--clr-tag-physics-bg);
   color: var(--clr-tag-physics-text);
+}
+
+.card-tag.astro {
+  background: var(--clr-tag-astro-bg);
+  color: var(--clr-tag-astro-text);
+}
+
+.card-tag.cs {
+  background: var(--clr-tag-cs-bg);
+  color: var(--clr-tag-cs-text);
 }
 
 .card-status {
@@ -614,6 +648,14 @@ footer {
 
 .project-body .math-block[data-category="physics"] {
   border-left-color: var(--clr-accent-physics);
+}
+
+.project-body .math-block[data-category="astro"] {
+  border-left-color: var(--clr-accent-astro);
+}
+
+.project-body .math-block[data-category="cs"] {
+  border-left-color: var(--clr-accent-cs);
 }
 
 .update-log {

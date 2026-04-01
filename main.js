@@ -42,9 +42,17 @@ async function loadProjects() {
       const tagEl = doc.querySelector('.card-tag');
       let category = 'math';
       let tagText = 'Mathematics';
-      if (tagEl && tagEl.classList.contains('physics')) {
-        category = 'physics';
-        tagText = 'Physics';
+      if (tagEl) {
+        if (tagEl.classList.contains('physics')) {
+          category = 'physics';
+          tagText = 'Physics';
+        } else if (tagEl.classList.contains('astro')) {
+          category = 'astro';
+          tagText = 'Astrophysics';
+        } else if (tagEl.classList.contains('cs')) {
+          category = 'cs';
+          tagText = 'Computer Science';
+        }
       }
 
       // Get modification date for sorting (Defaults to 0 if headers aren't available)
