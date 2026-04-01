@@ -1,110 +1,75 @@
 // Set copyright year
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Filter logic
-const filterBtns = document.querySelectorAll('.filter-btn');
-let cards = document.querySelectorAll('.project-card');
-const countEl = document.getElementById('project-count');
+// Define your project folders
+const projectFolders = [
+  'analytic-and-function',
+  'circular-binaries',
+  'self-similar-pdes',
+  'stochastic-butcher',
+  'active-learning',
+  'twinkling-lights'
+];
 
-function updateCount() {
-  const visible = [...cards].filter(c => !c.classList.contains('hidden')).length;
-  countEl.textContent = visible + ' project' + (visible !== 1 ? 's' : '');
-}
-
-// Load projects dynamically
 async function loadProjects() {
   const projectGrid = document.getElementById('projects-grid');
   if (!projectGrid) return;
-  const projectFolders = [
-    'analytic-and-function',
-    'circular-binaries',
-    'self-similar-pdes',
-    'stochastic-butcher',
-    'active-learning',
-    'twinkling-lights'
-  ];
 
   let projects = [];
 
-  // Fetch each project
   for (const folder of projectFolders) {
     try {
-      // First try to load the postcard.html file which contains the metadata/summary
+      // Fetch the postcard snippet
       const response = await fetch(`projects/${folder}/postcard.html`);
-      let html = '';
       if (!response.ok) {
-        // If there's no postcard, just fall back to index.html for metadata extraction
-        const indexResponse = await fetch(`projects/${folder}/index.html`);
-        if (!indexResponse.ok) continue;
-        html = await indexResponse.text();
-      } else {
-        html = await response.text();
+        console.warn(`No postcard found for ${folder}, skipping.`);
+        continue;
       }
       
-      const lastModifiedHeader = response.headers.get('Last-Modified');
-      const lastModified = lastModifiedHeader ? new Date(lastModifiedHeader) : new Date(0);
-      
+      const html = await response.text();
       const parser = new DOMParser();
       const doc = parser.parseFromString(html, 'text/html');
 
+      // Extract Title
       const titleEl = doc.querySelector('.project-title');
-      let title = titleEl ? titleEl.innerHTML : folder.replace('-', ' ');
+      const title = titleEl ? titleEl.innerHTML : folder.replace(/-/g, ' ');
 
-      // Try to get abstract: first <p> in .project-body
-      const firstP = doc.querySelector('.project-body p');
-      let abstract = '';
-      if (firstP) {
-        abstract = firstP.innerHTML;
-        // Optionally truncate if you still want to
-        // if (abstract.length > 200) { abstract = abstract.substring(0, 197) + '...'; }
-      } else {
-        abstract = html; // if postcard is just a raw summary
-      }
+      // Extract Abstract/Body
+      const bodyEl = doc.querySelector('.project-body');
+      const abstract = bodyEl ? bodyEl.innerHTML : '';
 
-      // Get category from tag
+      // Extract Category
       const tagEl = doc.querySelector('.card-tag');
-      let category = 'math'; // default
+      let category = 'math';
       let tagText = 'Mathematics';
-      if (tagEl) {
-        if (tagEl.classList.contains('physics')) {
-          category = 'physics';
-          tagText = 'Physics';
-        } else {
-          category = 'math';
-          tagText = 'Mathematics';
-        }
+      if (tagEl && tagEl.classList.contains('physics')) {
+        category = 'physics';
+        tagText = 'Physics';
       }
 
-      projects.push({
-        folder,
-        title,
-        abstract,
-        category,
-        tagText,
-        lastModified
-      });
+      // Get modification date for sorting (Defaults to 0 if headers aren't available)
+      const lastModifiedHeader = response.headers.get('Last-Modified');
+      const lastModified = lastModifiedHeader ? new Date(lastModifiedHeader) : new Date(0);
+
+      projects.push({ folder, title, abstract, category, tagText, lastModified });
     } catch (err) {
       console.error(`Failed to load ${folder}:`, err);
     }
   }
 
-  // Fallback to static order if no Last-Modified headers are present (e.g. file:// protocol)
-  if (projects.every(p => p.lastModified.getTime() === 0)) {
-     // If Last-Modified isn't available, we could default string sorting or just rely on manual ordering 
-     // but we'll try to fetch modified times via github API or something if needed. 
-     // Right now it leaves the order as-is or relies on 'new Date(0)' which makes them equal.
-  } else {
-    // Sort projects by last updated (newest first)
-    projects.sort((a, b) => b.lastModified - a.lastModified);
-  }
+  // Sort projects: newest first
+  projects.sort((a, b) => b.lastModified - a.lastModified);
 
-  // Render projects
+  // Render projects into the grid
   projectGrid.innerHTML = '';
   projects.forEach(proj => {
     const article = document.createElement('article');
     article.className = 'project-card';
     article.dataset.category = proj.category;
-    article.onclick = () => window.location.href = `projects/${proj.folder}/index.html`;
+    
+    // FIX: Link dynamically to the actual file (e.g., folder/folder.html)
+    const projectUrl = `projects/${proj.folder}/${proj.folder}.html`;
+    article.onclick = () => window.location.href = projectUrl;
 
     article.innerHTML = `
       <div class="card-meta">
@@ -114,30 +79,55 @@ async function loadProjects() {
         </span>
       </div>
       <h3 class="card-title">
-        <a href="projects/${proj.folder}/index.html">${proj.title}</a>
+        <a href="${projectUrl}">${proj.title}</a>
       </h3>
-      ${proj.abstract ? `<p class="card-description">${proj.abstract}</p>` : ''}
+      <div class="card-description">${proj.abstract}</div>
     `;
     projectGrid.appendChild(article);
   });
 
-  // Re-select cards for filtering
-  cards = document.querySelectorAll('.project-card');
+  // FIX: Re-render KaTeX math equations inside dynamically loaded postcards
+  if (window.renderMathInElement) {
+    renderMathInElement(projectGrid, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false}
+      ]
+    });
+  }
+
+  initFilters();
+}
+
+function initFilters() {
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.project-card');
+  const countEl = document.getElementById('project-count');
+
+  function updateCount() {
+    const visible = [...cards].filter(c => !c.classList.contains('hidden')).length;
+    countEl.textContent = visible + ' project' + (visible !== 1 ? 's' : '');
+  }
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Toggle button active states
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      // Filter the grid items
+      const filter = btn.dataset.filter;
+      cards.forEach(card => {
+        const match = filter === 'all' || card.dataset.category === filter;
+        card.classList.toggle('hidden', !match);
+      });
+      
+      updateCount();
+    });
+  });
+
   updateCount();
 }
 
-filterBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    filterBtns.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const filter = btn.dataset.filter;
-    cards.forEach(card => {
-      const match = filter === 'all' || card.dataset.category === filter;
-      card.classList.toggle('hidden', !match);
-    });
-    updateCount();
-  });
-});
-
-// Fetch projects on load
+// Start loading process
 loadProjects();

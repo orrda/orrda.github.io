@@ -218,6 +218,22 @@ h1.hero-title {
   font-weight: 500;
 }
 
+/* Fix for injected postcard paragraphs */
+.card-description p {
+  margin-bottom: 0.75rem;
+}
+
+.card-description p:last-child {
+  margin-bottom: 0;
+}
+
+/* Make sure the Math output inside postcards wraps correctly */
+.card-description .katex-display {
+  margin: 0.5rem 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
 /* ============================
    Filter tabs
    ============================ */
