@@ -45,6 +45,7 @@
     <div class="project-header">
       <div class="project-header-meta">
         <span class="card-tag math">Mathematics</span>
+        <span class="card-tag cs">CS</span>
         <span class="card-status">
           <span class="status-dot"></span>In progress
         </span>
@@ -104,6 +105,20 @@
         <li>  Since $f(x,y)$ is analytic, then so is $g(x)$</li>
         <li>  By 1 and 2, we have $g(x) = 0$ for all $x \in \mathbb{R}$, but this is a contradiction to 3</li>
       </ol>
+      <h2>Functional complete set</h2>
+      <p>
+      we notice that Constructing an analytic "NOT" gate is pretty trivial:
+      $$
+      f(x) = -x
+      $$
+      So if we had an analytic "AND" function, we could construct any logical function we wanted as a composition of "AND" and "NOT" functions.
+      
+      This intiution increases as we notice that a "XOR" analytic function is very easy to construct:
+      $$
+      f(x,y) = xy 
+      $$
+      and it feels like this is not a coincidence, since "XOR" and "NOT" are not enough to construct a Functional complete set.
+      </p>
     </div>
 
   </div>

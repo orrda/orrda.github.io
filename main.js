@@ -8,7 +8,8 @@ const projectFolders = [
   'self-similar-pdes',
   'stochastic-butcher',
   'active-learning',
-  'twinkling-lights'
+  'twinkling-lights',
+  'Dark-matter-halos'
 ];
 
 async function loadProjects() {
@@ -38,28 +39,26 @@ async function loadProjects() {
       const bodyEl = doc.querySelector('.project-body');
       const abstract = bodyEl ? bodyEl.innerHTML : '';
 
-      // Extract Category
-      const tagEl = doc.querySelector('.card-tag');
-      let category = 'math';
-      let tagText = 'Mathematics';
-      if (tagEl) {
-        if (tagEl.classList.contains('physics')) {
-          category = 'physics';
-          tagText = 'Physics';
-        } else if (tagEl.classList.contains('astro')) {
-          category = 'astro';
-          tagText = 'Astrophysics';
-        } else if (tagEl.classList.contains('cs')) {
-          category = 'cs';
-          tagText = 'Computer Science';
-        }
-      }
+      // Extract all categories from all .card-tag elements
+      const tagEls = doc.querySelectorAll('.card-tag');
+      const categories = [];
+      tagEls.forEach(el => {
+        if (el.classList.contains('physics')) categories.push('physics');
+        else if (el.classList.contains('astro')) categories.push('astro');
+        else if (el.classList.contains('cs')) categories.push('cs');
+        else if (el.classList.contains('math')) categories.push('math');
+      });
+      const category = categories.length ? categories.join(' ') : 'math';
+      const metaEl = doc.querySelector('.card-meta');
+      const tagsHtml = metaEl
+        ? [...metaEl.querySelectorAll('.card-tag')].map(el => el.outerHTML).join('\n        ')
+        : `<span class="card-tag math">Mathematics</span>`;
 
       // Get modification date for sorting (Defaults to 0 if headers aren't available)
       const lastModifiedHeader = response.headers.get('Last-Modified');
       const lastModified = lastModifiedHeader ? new Date(lastModifiedHeader) : new Date(0);
 
-      projects.push({ folder, title, abstract, category, tagText, lastModified });
+      projects.push({ folder, title, abstract, category, tagsHtml, lastModified });
     } catch (err) {
       console.error(`Failed to load ${folder}:`, err);
     }
@@ -81,10 +80,7 @@ async function loadProjects() {
 
     article.innerHTML = `
       <div class="card-meta">
-        <span class="card-tag ${proj.category}">${proj.tagText}</span>
-        <span class="card-status">
-          <span class="status-dot"></span>In progress
-        </span>
+        ${proj.tagsHtml}
       </div>
       <h3 class="card-title">
         <a href="${projectUrl}">${proj.title}</a>
@@ -126,7 +122,7 @@ function initFilters() {
       // Filter the grid items
       const filter = btn.dataset.filter;
       cards.forEach(card => {
-        const match = filter === 'all' || card.dataset.category === filter;
+        const match = filter === 'all' || card.dataset.category.split(' ').includes(filter);
         card.classList.toggle('hidden', !match);
       });
       

@@ -36,6 +36,10 @@ html {
   scroll-behavior: smooth;
 }
 
+ul, ol, li {
+  color: var(--clr-text);
+}
+
 body {
   background-color: var(--clr-bg);
   color: var(--clr-text);
@@ -78,7 +82,8 @@ header {
 nav {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 2rem;
   height: 60px;
 }
 
@@ -469,7 +474,7 @@ h1.hero-title {
   align-items: flex-start;
   gap: 0.6rem;
   font-size: 0.9rem;
-  color: var(--clr-muted);
+  color: var(--clr-text);
 }
 
 .interests-list li::before {
@@ -618,6 +623,18 @@ footer {
   margin-bottom: 1rem;
 }
 
+.project-body ol {
+  padding-left: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.project-body ol li {
+  color: var(--clr-muted);
+  font-size: 0.95rem;
+  padding: 0.3rem 0;
+  line-height: 1.8;
+}
+
 .project-body ul li {
   color: var(--clr-muted);
   font-size: 0.95rem;
@@ -656,6 +673,60 @@ footer {
 
 .project-body .math-block[data-category="cs"] {
   border-left-color: var(--clr-accent-cs);
+}
+
+.project-body pre {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  overflow-x: auto;
+  margin: 1.25rem 0;
+}
+
+.project-body pre code {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--clr-text);
+  line-height: 1.7;
+}
+
+.project-body .data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  margin: 1.25rem 0;
+}
+
+.project-body .data-table th,
+.project-body .data-table td {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--clr-border);
+  text-align: center;
+  color: var(--clr-muted);
+}
+
+.project-body .data-table th {
+  background: var(--clr-surface);
+  font-weight: 600;
+  color: var(--clr-text);
+}
+
+.project-body .plot-container {
+  margin: 1.5rem 0;
+}
+
+.project-body .project-plot {
+  max-width: 100%;
+  border-radius: var(--radius);
+  border: 1px solid var(--clr-border);
+}
+
+.project-body h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 1.75rem 0 0.5rem;
+  color: var(--clr-text);
 }
 
 .update-log {
